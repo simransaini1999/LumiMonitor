@@ -66,4 +66,27 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:srcCompat="@drawable/ic_stop_black_24dp" />
 
+    <ImageView
+        android:id="@+id/ToLumiMonitor"
+        android:layout_width="130dp"
+        android:layout_height="89dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playbutton"
+        app:srcCompat="@drawable/ic_tv_black_24dp" />
+
+    <TextView
+        android:id="@+id/ToLumiMonitorTitle"
+        android:layout_width="154dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:autoText="false"
+        android:fontFamily="@font/allerta"
+        android:text="LumiMonitor"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ToLumiMonitor" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
