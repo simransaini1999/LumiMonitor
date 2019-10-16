@@ -68,25 +68,71 @@
 
     <ImageView
         android:id="@+id/ToLumiMonitor"
-        android:layout_width="130dp"
-        android:layout_height="89dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="103dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playbutton"
         app:srcCompat="@drawable/ic_tv_black_24dp" />
 
     <TextView
         android:id="@+id/ToLumiMonitorTitle"
-        android:layout_width="154dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="139dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="12dp"
         android:autoText="false"
         android:fontFamily="@font/allerta"
+        android:gravity="center"
         android:text="LumiMonitor"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ToLumiMonitor" />
+
+    <ImageView
+        android:id="@+id/ToBabyData"
+        android:layout_width="103dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@+id/ToLumiMonitor"
+        app:layout_constraintTop_toBottomOf="@+id/stopbutton"
+        app:srcCompat="@drawable/ic_child_care_black_24dp" />
+
+    <TextView
+        android:id="@+id/ToBabyDataTitle"
+        android:layout_width="136dp"
+        android:layout_height="65dp"
+        android:fontFamily="@font/allerta"
+        android:gravity="center"
+        android:text="View Baby Data"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/ToLumiMonitorTitle"
+        app:layout_constraintTop_toBottomOf="@+id/ToBabyData" />
+
+    <ImageView
+        android:id="@+id/ToReminders"
+        android:layout_width="103dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@+id/ToBabyData"
+        app:layout_constraintTop_toBottomOf="@+id/stopbutton"
+        app:srcCompat="@drawable/ic_notifications_black_24dp" />
+
+    <TextView
+        android:id="@+id/ToRemindersTitle"
+        android:layout_width="122dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/allerta"
+        android:gravity="center"
+        android:text="Reminders"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/ToBabyDataTitle"
+        app:layout_constraintTop_toBottomOf="@+id/ToReminders" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".Lumi_Monitor"></activity>
+        <activity android:name=".Reminders"></activity>
+        <activity android:name=".Baby_Data" />
+        <activity android:name=".Lumi_Monitor" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
