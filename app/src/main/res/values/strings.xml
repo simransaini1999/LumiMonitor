@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LumiMonitor</string>
+    <string name="dataUnavailable">No data us available in the database.</string>
 </resources>
