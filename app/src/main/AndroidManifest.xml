@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".Settings"></activity>
+        <activity android:name=".LoginScreen"></activity>
+        <activity android:name=".Registration" />
+        <activity android:name=".Settings" />
         <activity android:name=".MusicActivity" />
         <activity android:name=".LightActivity" />
         <activity android:name=".Lumi_Monitor" />

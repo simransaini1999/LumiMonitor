@@ -91,14 +91,14 @@ public class MainActivity extends AppCompatActivity {
         ToBabyData.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Baby_Data.class));
+                startActivity(new Intent(MainActivity.this,LoginScreen.class));
             }
         }));
 
         ToBabyDataTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Baby_Data.class));
+                startActivity(new Intent(MainActivity.this,LoginScreen.class));
             }
         });
 
