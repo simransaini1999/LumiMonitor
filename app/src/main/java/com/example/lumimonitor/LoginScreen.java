@@ -1,11 +1,13 @@
 package com.example.lumimonitor;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,7 +27,6 @@ public class LoginScreen extends AppCompatActivity {
     private TextView password;
     private Button loginBtn;
     private Button signUpBtn;
-    private Button backBtn;
     private FirebaseAuth mAuth;
 
 
@@ -34,11 +35,25 @@ public class LoginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+        setTitle("Login");
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         findAllViews();
-        BackButton();
         SignUpButton();
         LoginHandler();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void findAllViews() {
@@ -46,17 +61,9 @@ public class LoginScreen extends AppCompatActivity {
         password = findViewById(R.id.passwordInput);
         loginBtn = findViewById(R.id.LoginButton);
         signUpBtn = findViewById(R.id.SignUpButton);
-        backBtn = findViewById(R.id.BackBtn);
     }
 
-    private void BackButton() {
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
-    }
 
     private void SignUpButton() {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
