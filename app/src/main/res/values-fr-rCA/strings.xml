@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LumiMonitor</string>
+    <string name="authFailed">Authentification échouée.</string>
+    <string name="awaken">Réveiller le temps</string>
+    <string name="babyLogin">Connexion de données de bébé</string>
+    <string name="babyView">Voir bébé</string>
+    <string name="checkPassword">Vérifier le mot de passe</string>
+    <string name="confirmPasswordHint">Confirmez le mot de passe</string>
+    <string name="dataUnavailable">Aucune donnée n\'est disponible dans la base de données.</string>
+    <string name="emailHint">Entrer l\'adresse e-mail</string>
+    <string name="empField">L\'email et / ou le mot de passe ne peuvent pas être vides</string>
+    <string name="epEmpty">Email et mot de passe ne peuvent pas être vides</string>
+    <string name="humid">Humidité</string>
+    <string name="lightVal">Valeur lumineuse</string>
+    <string name="lights">Lumières</string>
+    <string name="login">S\'identifier</string>
+    <string name="loginSuccess">Connexion réussie!</string>
+    <string name="music">La musique</string>
+    <string name="musicPlay">La musique joue maintenant</string>
+    <string name="musicStop">La musique a cessé de jouer</string>
+    <string name="newUser">Nouvel utilisateur</string>
+    <string name="newUserReg">" est maintenant inscrit"</string>
+    <string name="passMatch">Le mot de passe ne correspond pas, ne peut pas continuer</string>
+    <string name="password">Mot de passe</string>
+    <string name="passwordHint">Entrer le mot de passe</string>
+    <string name="ptt">pousser à parler</string>
+    <string name="register">S\'inscrire</string>
+    <string name="registration">enregistrement</string>
+    <string name="reminders">Des rappels</string>
+    <string name="settings">Paramètres</string>
+    <string name="temp">Température</string>
+    <string name="userFailed">La création d\'un nouvel utilisateur a échoué.</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="viewData">Voir les données de bébé</string>
+</resources>

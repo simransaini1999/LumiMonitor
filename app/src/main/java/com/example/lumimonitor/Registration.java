@@ -32,7 +32,7 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        setTitle("Registraton");
+        setTitle(getString(R.string.registration));
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
@@ -78,13 +78,13 @@ public class Registration extends AppCompatActivity {
         String registerPassword2 = String.valueOf(confPassword.getText());
 
         if (registerEmail.length() == 0 ||enterPassword.length() == 0 || confPassword.length() == 0) {
-            Toast.makeText(getApplicationContext(), "The email and/or password cannot be empty",
+            Toast.makeText(getApplicationContext(), getString(R.string.empField),
                     Toast.LENGTH_LONG).show();
             return; // do nothing if empty.
         }
         else if (!registerPassword1.equals(registerPassword2))
         {
-            Toast.makeText(getApplicationContext(), "The password does not match, cannot continue",
+            Toast.makeText(getApplicationContext(), getString(R.string.passMatch),
                     Toast.LENGTH_LONG).show();
         }
         mAuth = FirebaseAuth.getInstance();
@@ -94,13 +94,13 @@ public class Registration extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d("Lumi-Monitor", "createUserwithEmail:success");
+                            Log.d("LumiMonitor", "createUserwithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            message.setText("New user " + user.getEmail() + " is now registered");
+                            message.setText(getString(R.string.newUser) + user.getEmail() + getString(R.string.newUserReg));
                             finish();
                         } else {
-                            Log.w("Lumi-Monitor", "createUserWithEmail:faliure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Create new user failed.",
+                            Log.w("LumiMonitor", "createUserWithEmail:faliure", task.getException());
+                            Toast.makeText(getApplicationContext(), getString(R.string.userFailed),
                                     Toast.LENGTH_LONG).show();
                         }
                     }

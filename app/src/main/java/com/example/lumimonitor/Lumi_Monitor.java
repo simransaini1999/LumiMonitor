@@ -1,9 +1,12 @@
 package com.example.lumimonitor;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,7 +17,7 @@ public class Lumi_Monitor extends AppCompatActivity {
     // Button Declarations
     ImageButton lightButton;
     ImageButton musicButton;
-    Button backButton;
+    //Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +25,31 @@ public class Lumi_Monitor extends AppCompatActivity {
 
         setContentView(R.layout.activity_lumi__monitor2);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         findAllViews();
         configureLightsButton();
         configureMusicButton();
-        backMainMenu();
+        //backMainMenu();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void findAllViews() {
         lightButton = findViewById(R.id.LightButton);
         musicButton = findViewById(R.id.MusicButton);
-        backButton = findViewById(R.id.BackButton);
+        //backButton = findViewById(R.id.BackButton);
     }
 
     private void configureLightsButton() {
@@ -57,6 +74,8 @@ public class Lumi_Monitor extends AppCompatActivity {
         });
     }
 
+    /*
+
     private void backMainMenu() {
         backButton.setOnClickListener(new View.OnClickListener () {
             @Override
@@ -64,6 +83,6 @@ public class Lumi_Monitor extends AppCompatActivity {
                        finish();
             }
         });
-    }
+    }*/
 
 }

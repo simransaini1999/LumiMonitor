@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 if (view == findViewById(R.id.playbutton)){
                     playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
                     songplaying.setVisibility(View.VISIBLE);
-                    Toast.makeText(MainActivity.this,"Music Is Now Playing",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,getString(R.string.musicPlay),Toast.LENGTH_LONG).show();
                     testplay = true;
                 }
             }
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 playbutton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                 songplaying.setVisibility(View.GONE);
-                Toast.makeText(MainActivity.this,"The Music Has Stopped Playing",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,getString(R.string.musicStop),Toast.LENGTH_LONG).show();
             }
         });
 

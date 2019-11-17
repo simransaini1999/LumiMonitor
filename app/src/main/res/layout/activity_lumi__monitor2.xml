@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/allerta"
-        android:text="Push To Talk"
+        android:text="@string/ptt"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/allerta"
-        android:text="Music"
+        android:text="@string/music"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/allerta"
-        android:text="Lights"
+        android:text="@string/lights"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/allerta"
-        android:text="Baby View"
+        android:text="@string/babyView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -136,17 +136,5 @@
         app:layout_constraintTop_toBottomOf="@+id/videoView"
         app:layout_constraintVertical_bias="0.59"
         app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
-
-    <Button
-        android:id="@+id/BackButton"
-        android:layout_width="94dp"
-        android:layout_height="37dp"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

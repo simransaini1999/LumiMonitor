@@ -35,7 +35,7 @@ public class LoginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
-        setTitle("Login");
+        setTitle(getString(R.string.login));
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
@@ -91,7 +91,7 @@ public class LoginScreen extends AppCompatActivity {
     private void loginUser(String email, String password) {
         // Ensures that email and password fields are not empty
         if (email.length()==0 || password.length()==0){
-            Toast.makeText(getApplicationContext(), "Email and password cannot be empty",
+            Toast.makeText(getApplicationContext(), getString(R.string.epEmpty),
                     Toast.LENGTH_LONG).show();
             return;
         }
@@ -102,15 +102,15 @@ public class LoginScreen extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            Log.d("MapleLeaf", "signInWithEmail:success");
+                            Log.d("LumiMonitor", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Login successful!",
+                            Toast.makeText(getApplicationContext(), getString(R.string.loginSuccess),
                                     Toast.LENGTH_LONG).show();
                             Intent babyDataIntent = new Intent(LoginScreen.this, Baby_Data.class);
                             startActivity(babyDataIntent);
                         } else {
-                            Log.w("MapleLeaf", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
+                            Log.w("LumiMonitor", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(getApplicationContext(), getString(R.string.authFailed),
                                     Toast.LENGTH_LONG).show();
                         }
                     }

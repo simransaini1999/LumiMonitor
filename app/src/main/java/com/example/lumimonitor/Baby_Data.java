@@ -84,10 +84,10 @@ public class Baby_Data extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 DataStructure ds = dataSnapshot.getValue(DataStructure.class);
-                username.setText("Username: " + ds.getUsername());
-                temperature.setText("Temperature: " + ds.getTemperature());
-                humidity.setText("Humidity: " + ds.getHumidity());
-                lightValue.setText("Light Value :" + ds.getLightValue());
+                username.setText(getString(R.string.username) + ds.getUsername());
+                temperature.setText(getString(R.string.temp) + ds.getTemperature());
+                humidity.setText(getString(R.string.humid) + ds.getHumidity());
+                lightValue.setText(getString(R.string.lightVal) + ds.getLightValue());
 
                 // Convert time stamp to Date and Time
                 awakenTime.setText(convertTimestamp(ds.getAwakenTime()));
@@ -103,10 +103,10 @@ public class Baby_Data extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 DataStructure ds = dataSnapshot.getValue(DataStructure.class);
-                username.setText("Name: "+ ds.getUsername());
-                temperature.setText("Temperature: "+ds.getTemperature());
-                humidity.setText("Humidity: " + ds.getHumidity());
-                lightValue.setText("Light Value :" + ds.getLightValue());
+                username.setText(getString(R.string.username)  + ds.getUsername());
+                temperature.setText(getString(R.string.temp)  + ds.getTemperature());
+                humidity.setText(getString(R.string.humid)+ ds.getHumidity());
+                lightValue.setText(getString(R.string.lightVal) + ds.getLightValue());
 
                 // Convert from timestamps to Date and time
                 awakenTime.setText(convertTimestamp(ds.getAwakenTime()));
@@ -149,7 +149,7 @@ public class Baby_Data extends AppCompatActivity {
                         dataStructure.setAwakenTime(a.getValue(DataStructure.class).getAwakenTime());
 
                         arraylist.add(dataStructure);  // now all the data is in arraylist.
-                        Log.d("MapleLeaf", "dataStructure " + dataStructure.getAwakenTime());
+                        Log.d("LumiMonitor", "dataStructure " + dataStructure.getAwakenTime());
                     }
                 }else
                 {
@@ -160,7 +160,7 @@ public class Baby_Data extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting data failed, log a message
-                Log.d("MapleLeaf", "Data Loading Canceled/Failed.", databaseError.toException());
+                Log.d("LumiMonitor", "Data Loading Canceled/Failed.", databaseError.toException());
             }
         });
     }
