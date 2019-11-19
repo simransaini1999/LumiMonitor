@@ -34,7 +34,6 @@ public class Baby_Data extends AppCompatActivity {
     private DatabaseReference myRef;
     DataStructure myData;
 
-    private TextView username;
     private TextView temperature;
     private TextView humidity;
     private TextView lightValue;
@@ -63,7 +62,6 @@ public class Baby_Data extends AppCompatActivity {
     }
 
     private void findAllViews() {
-        username = findViewById(R.id.userNameText);
         temperature = findViewById(R.id.temperatureText);
         humidity = findViewById(R.id.humidityText);
         lightValue = findViewById(R.id.lightValueText);
@@ -84,13 +82,12 @@ public class Baby_Data extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 DataStructure ds = dataSnapshot.getValue(DataStructure.class);
-                username.setText(getString(R.string.username) + ds.getUsername());
-                temperature.setText(getString(R.string.temp) + ds.getTemperature());
-                humidity.setText(getString(R.string.humid) + ds.getHumidity());
-                lightValue.setText(getString(R.string.lightVal) + ds.getLightValue());
+                temperature.setText(getString(R.string.temp) + " " + ds.getTemperature());
+                humidity.setText(getString(R.string.humid) + " " + ds.getHumidity());
+                lightValue.setText(getString(R.string.lightVal) + " " + ds.getLightValue());
 
                 // Convert time stamp to Date and Time
-                awakenTime.setText(convertTimestamp(ds.getAwakenTime()));
+                awakenTime.setText(getString(R.string.awaken) + " " + convertTimestamp(ds.getAwakenTime()));
             }
 
             private String convertTimestamp(String timestamp) {
@@ -103,13 +100,12 @@ public class Baby_Data extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 DataStructure ds = dataSnapshot.getValue(DataStructure.class);
-                username.setText(getString(R.string.username)  + ds.getUsername());
-                temperature.setText(getString(R.string.temp)  + ds.getTemperature());
-                humidity.setText(getString(R.string.humid)+ ds.getHumidity());
-                lightValue.setText(getString(R.string.lightVal) + ds.getLightValue());
+                temperature.setText(getString(R.string.temp) + " " + ds.getTemperature());
+                humidity.setText(getString(R.string.humid) + " " + ds.getHumidity());
+                lightValue.setText(getString(R.string.lightVal) + " " + ds.getLightValue());
 
                 // Convert from timestamps to Date and time
-                awakenTime.setText(convertTimestamp(ds.getAwakenTime()));
+                awakenTime.setText(getString(R.string.awaken) + " " + convertTimestamp(ds.getAwakenTime()));
             }
 
 
@@ -142,7 +138,6 @@ public class Baby_Data extends AppCompatActivity {
                     // iterate all the items in the dataSnapshot
                     for (DataSnapshot a : dataSnapshot.getChildren()) {
                         DataStructure dataStructure = new DataStructure();
-                        dataStructure.setUsername(a.getValue(DataStructure.class).getUsername());
                         dataStructure.setTemperature(a.getValue(DataStructure.class).getTemperature());
                         dataStructure.setHumidity(a.getValue(DataStructure.class).getHumidity());
                         dataStructure.setLightValue(a.getValue(DataStructure.class).getLightValue());

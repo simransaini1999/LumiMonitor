@@ -52,12 +52,25 @@ public class Lumi_Monitor extends AppCompatActivity {
         //backButton = findViewById(R.id.BackButton);
     }
 
+    /*
     private void configureLightsButton() {
         lightButton.setOnClickListener(new View.OnClickListener () {
 
             @Override
             public void onClick(View v) {
                 Intent lightIntent = new Intent(Lumi_Monitor.this, LightActivity.class);
+                startActivity(lightIntent);
+            }
+        });
+    } */
+
+    //TESTING: DATABASE INPUT PAGE
+    private void configureLightsButton() {
+        lightButton.setOnClickListener(new View.OnClickListener () {
+
+            @Override
+            public void onClick(View v) {
+                Intent lightIntent = new Intent(Lumi_Monitor.this, TestWriteDB.class);
                 startActivity(lightIntent);
             }
         });

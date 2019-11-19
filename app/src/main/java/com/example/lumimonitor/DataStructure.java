@@ -2,7 +2,6 @@ package com.example.lumimonitor;
 
 public class DataStructure {
 
-    private String username;
     private String temperature;
     private String humidity;
     private String lightValue;
@@ -11,23 +10,14 @@ public class DataStructure {
     public DataStructure() {
     }
 
-    public DataStructure(String username, String temperature,String humidity,
+    public DataStructure(String temperature,String humidity,
                          String lightValue, String awakenTime) {
 
-        this.username = username;
         this.temperature = temperature;
         this.humidity = humidity;
         this.lightValue = lightValue;
         this.awakenTime = awakenTime;
 
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getTemperature() {

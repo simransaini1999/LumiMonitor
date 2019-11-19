@@ -17,6 +17,9 @@
         <activity android:name=".Lumi_Monitor" />
         <activity android:name=".Reminders" />
         <activity android:name=".Baby_Data" />
+
+        <activity android:name=".TestWriteDB" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
