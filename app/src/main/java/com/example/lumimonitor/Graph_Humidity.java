@@ -231,7 +231,7 @@ public class Graph_Humidity extends AppCompatActivity {
     }
 
     private void setupTitleandHomeButton() {
-        getSupportActionBar().setSubtitle(R.string.tempGraphString);
+        getSupportActionBar().setSubtitle("Humidity Graph");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

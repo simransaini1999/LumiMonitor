@@ -231,7 +231,7 @@ public class Graph_Light_Value extends AppCompatActivity {
     }
 
     private void setupTitleandHomeButton() {
-        getSupportActionBar().setSubtitle(R.string.tempGraphString);
+        getSupportActionBar().setSubtitle("Light Value Graph");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
