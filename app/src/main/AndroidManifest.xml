@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".LoginScreen"></activity>
+        <activity android:name=".Change_Password"></activity>
+        <activity android:name=".Set_Language" />
+        <activity android:name=".LoginScreen" />
         <activity android:name=".Registration" />
         <activity android:name=".Settings" />
         <activity android:name=".MusicActivity" />
@@ -17,9 +19,7 @@
         <activity android:name=".Lumi_Monitor" />
         <activity android:name=".Reminders" />
         <activity android:name=".Baby_Data" />
-
         <activity android:name=".TestWriteDB" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
