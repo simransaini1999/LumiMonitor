@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,14 +48,16 @@ public class Graph_Temperature extends AppCompatActivity {
         setContentView(R.layout.activity_graph_temperature);
         setupTitleandHomeButton();
         firstTimeDrew = false;
-        // TODO 1: Find the chart
+        //Find the chart
         linechart = findViewById(R.id.firebaseline_chart);
 
-        // TODO 2: Find the Database.
+        //Find the Database.
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference("data");
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String path = "userdata/" + mAuth.getUid();
+        ref = database.getReference(path);
 
-        // TODO 3: Load the data from database.
+        //Load the data from database.
         loadDatabase(ref);
 
 
@@ -62,13 +65,13 @@ public class Graph_Temperature extends AppCompatActivity {
 
     private void drawGraph() {
 
-        /*
+
         if (firebaseData.size() > N)  // Should have a guard to make sure we always draw the most recent N numbers.
             firebaseData = firebaseData.subList(firebaseData.size()-N, firebaseData.size());
 
-        Collections.sort(firebaseData); */
+        Collections.sort(firebaseData);
         for (int i=0; i< firebaseData.size(); i++){
-            // TODO: Define the XLabels of the chart.
+            //Define the XLabels of the chart.
             try{
                // XLabels[i] = firebaseData.get(i).getTimestamp();
               XLabels[i] = convertTimestamp(firebaseData.get(i).getAwakenTime());
@@ -77,7 +80,7 @@ public class Graph_Temperature extends AppCompatActivity {
                 Log.d("MapleLeaf", "Error Happened: " + e.getMessage());
             }
         }
-        // TODO: Set text description of the xAxis
+        //Set text description of the xAxis
         Description desc = new Description();
         desc.setText("LineChart from Firebase");
         desc.setTextSize(15);
@@ -85,32 +88,29 @@ public class Graph_Temperature extends AppCompatActivity {
 
         linechart.animateXY(2000,2000);
 
-        // TODO: Set the X-axis labels
         setAndValidateLabels();
 
-        // TODO: Set LineData Entries
         int i = 0;
         List<Entry> entrylist = new ArrayList();
-        // TODO: Entry is the element of the data input to the chart. All the data should be organized as Entries' ArrayList
         for (DataStructure ds: firebaseData){
-            // Get the humidity from the firebase.
-            Entry e = new Entry (i++, Float.parseFloat(ds.getHumidity()));
+            // Get the temperature from the firebase.
+            Entry e = new Entry (i++, Float.parseFloat(ds.getTemperature()));
             entrylist.add(e);
         }
 
-        // TODO: find the dataset of the ArrayList.
-        LineDataSet dataset = new LineDataSet(entrylist, "Humidity");
+        //Find the dataset of the ArrayList.
+        LineDataSet dataset = new LineDataSet(entrylist, "Temperature");
         dataset.setColor(R.color.colorAccent);  // set the color of this chart.
         dataset.setValueTextSize(14);
-        // TODO: Get the LineData Object from dataset.
+        //Get the LineData Object from dataset.
         LineData linedata = new LineData(dataset);
         linechart.setData(linedata);
-        // TODO: This is a must to refresh the chart.
+        //This is a must to refresh the chart.
         linechart.invalidate(); // refresh
     }
 
     private void setAndValidateLabels() {
-        // TODO: Set the labels to be displayed.
+        //Set the labels to be displayed.
         XAxis xAxis = linechart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
@@ -126,7 +126,6 @@ public class Graph_Temperature extends AppCompatActivity {
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 3
     }
 
-
     private void loadDatabase(DatabaseReference ref) {
         // Last N data entries from Database, these are automatically the N most recent data
 
@@ -136,7 +135,7 @@ public class Graph_Temperature extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("MapleLeaf", "finished");
-                // TODO 4: Now all the query data is in List firebaseData, Follow the similar procedure in Line activity.
+                //Now all the query data is in List firebaseData, Follow the similar procedure in Line activity.
                 drawGraph();
 
                 firstTimeDrew = true;
@@ -151,8 +150,8 @@ public class Graph_Temperature extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    // TODO: handle all the returned data. Similar to the Firebase read structure event.
-                    // TODO: This part of the code is to handle if there is any data changed on Firebase.
+                    //handle all the returned data. Similar to the Firebase read structure event.
+                    //This part of the code is to handle if there is any data changed on Firebase.
                     DataStructure dataStructure = new DataStructure();
                     dataStructure.setTemperature(dataSnapshot.getValue(DataStructure.class).getTemperature());
                     dataStructure.setHumidity(dataSnapshot.getValue(DataStructure.class).getHumidity());
@@ -171,15 +170,15 @@ public class Graph_Temperature extends AppCompatActivity {
 
                     Log.d("MapleLeaf", "dataStructure at " + dataStructure.getAwakenTime() + " Updated");
                 }
-                // TODO 4: Now all the query data is in List firebaseData, Follow the similar procedure in Line activity.
+                //Now all the query data is in List firebaseData, Follow the similar procedure in Line activity.
                 drawGraph();
             }
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    // TODO: handle all the returned data. Similar to the Firebase read structure event.
-                    // TODO: This part of the code is to handle the new data is added to the code.
+                    //handle all the returned data. Similar to the Firebase read structure event.
+                    //This part of the code is to handle the new data is added to the code.
                     DataStructure dataStructure = new DataStructure();
                     dataStructure.setTemperature(dataSnapshot.getValue(DataStructure.class).getTemperature());
                     dataStructure.setHumidity(dataSnapshot.getValue(DataStructure.class).getHumidity());
@@ -190,7 +189,7 @@ public class Graph_Temperature extends AppCompatActivity {
                     Log.d("MapleLeaf", "dataStructure " + dataStructure.getAwakenTime());
                 }
                 try{
-                    // TODO: if already drew but still come to here, there is only one possibility that a new node is added to the database.
+                    //If already drew but still come to here, there is only one possibility that a new node is added to the database.
                     if (firstTimeDrew)
                         drawGraph();
                 }

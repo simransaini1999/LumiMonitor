@@ -75,6 +75,7 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
+    /*
     private void LoginHandler() {
         // Initializes Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -83,6 +84,23 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 loginUser(String.valueOf(email.getText()), String.valueOf(password.getText()));
+            }
+        });
+
+    } */
+
+    // Test to enter graph
+    private void LoginHandler() {
+        // Initializes Firebase Authentication
+        mAuth = FirebaseAuth.getInstance();
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginUser(String.valueOf(email.getText()), String.valueOf(password.getText()));
+
+                Intent lightIntent = new Intent(LoginScreen.this, Graph_Temperature.class);
+                startActivity(lightIntent);
             }
         });
 

@@ -1,6 +1,8 @@
 package com.example.lumimonitor;
 
-public class DataStructure {
+import android.renderscript.Sampler;
+
+public class DataStructure implements Comparable<DataStructure> {
 
     private String temperature;
     private String humidity;
@@ -51,4 +53,12 @@ public class DataStructure {
     public void setAwakenTime(String awakenTime) {
         this.awakenTime = awakenTime;
     }
+
+    public int compareTo(DataStructure st){
+        if (Long.parseLong(awakenTime) > Long.parseLong(st.awakenTime))
+            return 1;
+        else
+            return -1;
+    }
+
 }
