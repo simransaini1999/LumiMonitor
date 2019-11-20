@@ -33,6 +33,7 @@
     <string name="newUserReg"> is now registered</string>
     <string name="registration">Registration</string>
     <string name="settings">Settings</string>
+    <string name="tempGraphString">Temperature Graph</string>
 
 
 </resources>

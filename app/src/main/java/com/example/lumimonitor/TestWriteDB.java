@@ -23,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class TestWriteDB extends AppCompatActivity {
 
     private Button save;
-    private EditText awakenTime;
     private EditText temperature;
     private EditText humidity;
     private EditText message;
@@ -45,7 +44,7 @@ public class TestWriteDB extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                writeData(awakenTime.getText(), temperature.getText(), humidity.getText(), message.getText());
+                writeData(temperature.getText(), humidity.getText(), message.getText());
             }
         });
     }
@@ -60,7 +59,7 @@ public class TestWriteDB extends AppCompatActivity {
 
     }
 
-    private DataStructure createData(Editable name, Editable temperature, Editable humidity, Editable message){
+    private DataStructure createData(Editable temperature, Editable humidity, Editable message){
         // TODO: Get the timestamp
         Long time = System.currentTimeMillis()/1000;
         String timestamp = time.toString();
@@ -71,9 +70,9 @@ public class TestWriteDB extends AppCompatActivity {
      }
 
 
-    private void writeData(Editable name, Editable temperature, Editable humidity, Editable message) {
+    private void writeData(Editable temperature, Editable humidity, Editable message) {
 
-        mData = createData(name, temperature, humidity, message);
+        mData = createData(temperature, humidity, message);
         // Select one of the following methods to update the data.
         // 1. To set the value of data
         // myRef.setValue(mData);
@@ -98,7 +97,6 @@ public class TestWriteDB extends AppCompatActivity {
     // Find all the views for this activity.
     private void findAllViews(){
         save = findViewById(R.id.save);
-        awakenTime = findViewById(R.id.name);
         temperature = findViewById(R.id.temperature);
         humidity = findViewById(R.id.humidity);
         message = findViewById(R.id.log);

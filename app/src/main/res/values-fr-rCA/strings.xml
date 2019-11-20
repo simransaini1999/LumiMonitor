@@ -30,7 +30,8 @@
     <string name="reminders">Des rappels</string>
     <string name="settings">Paramètres</string>
     <string name="temp">Température</string>
-    <string name="userFailed">La création d\'un nouvel utilisateur a échoué.</string>
+    <string name="userFailed">" La création de l'utilisateur a échoué"</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="viewData">Voir les données de bébé</string>
+    <string name="tempGraphString">" Graphique de température"</string>
 </resources>
