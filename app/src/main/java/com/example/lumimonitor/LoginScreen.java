@@ -75,7 +75,7 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
-    /*
+
     private void LoginHandler() {
         // Initializes Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -87,8 +87,9 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
-    } */
+    }
 
+    /*
     // Test to enter graph
     private void LoginHandler() {
         // Initializes Firebase Authentication
@@ -104,7 +105,7 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
-    }
+    } */
 
     private void loginUser(String email, String password) {
         // Ensures that email and password fields are not empty
@@ -124,7 +125,7 @@ public class LoginScreen extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getApplicationContext(), getString(R.string.loginSuccess),
                                     Toast.LENGTH_LONG).show();
-                            Intent babyDataIntent = new Intent(LoginScreen.this, Baby_Data.class);
+                            Intent babyDataIntent = new Intent(LoginScreen.this, BabyDataGraphs.class);
                             startActivity(babyDataIntent);
                         } else {
                             Log.w("LumiMonitor", "signInWithEmail:failure", task.getException());

@@ -19,9 +19,16 @@
         <activity android:name=".Lumi_Monitor" />
         <activity android:name=".Reminders" />
         <activity android:name=".Baby_Data" />
+        <activity android:name=".BabyDataGraphs" />
         <activity android:name=".TestWriteDB" />
         <activity
             android:name=".Graph_Temperature"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Graph_Humidity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Graph_Light_Value"
             android:theme="@style/AppTheme" />
         <activity android:name=".MainActivity">
             <intent-filter>
