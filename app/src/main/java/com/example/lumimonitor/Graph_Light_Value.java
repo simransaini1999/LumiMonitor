@@ -45,7 +45,7 @@ public class Graph_Light_Value extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_graph_light);
+        setContentView(R.layout.activity_graph_light_value);
         setupTitleandHomeButton();
         firstTimeDrew = false;
         //Find the chart
@@ -155,6 +155,7 @@ public class Graph_Light_Value extends AppCompatActivity {
                     DataStructure dataStructure = new DataStructure();
                     dataStructure.setTemperature(dataSnapshot.getValue(DataStructure.class).getTemperature());
                     dataStructure.setHumidity(dataSnapshot.getValue(DataStructure.class).getHumidity());
+                    dataStructure.setLightValue(dataSnapshot.getValue(DataStructure.class).getLightValue());
                     String timestamp = dataSnapshot.getValue(DataStructure.class).getAwakenTime();
                     dataStructure.setAwakenTime(timestamp);
                     boolean updated = false;
@@ -182,6 +183,7 @@ public class Graph_Light_Value extends AppCompatActivity {
                     DataStructure dataStructure = new DataStructure();
                     dataStructure.setTemperature(dataSnapshot.getValue(DataStructure.class).getTemperature());
                     dataStructure.setHumidity(dataSnapshot.getValue(DataStructure.class).getHumidity());
+                    dataStructure.setLightValue(dataSnapshot.getValue(DataStructure.class).getLightValue());
                     String timestamp = dataSnapshot.getValue(DataStructure.class).getAwakenTime();
                     dataStructure.setAwakenTime(timestamp);
 

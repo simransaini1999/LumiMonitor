@@ -155,6 +155,7 @@ public class Graph_Temperature extends AppCompatActivity {
                     DataStructure dataStructure = new DataStructure();
                     dataStructure.setTemperature(dataSnapshot.getValue(DataStructure.class).getTemperature());
                     dataStructure.setHumidity(dataSnapshot.getValue(DataStructure.class).getHumidity());
+                    dataStructure.setLightValue(dataSnapshot.getValue(DataStructure.class).getLightValue());
                     String timestamp = dataSnapshot.getValue(DataStructure.class).getAwakenTime();
                     dataStructure.setAwakenTime(timestamp);
                     boolean updated = false;
@@ -182,6 +183,7 @@ public class Graph_Temperature extends AppCompatActivity {
                     DataStructure dataStructure = new DataStructure();
                     dataStructure.setTemperature(dataSnapshot.getValue(DataStructure.class).getTemperature());
                     dataStructure.setHumidity(dataSnapshot.getValue(DataStructure.class).getHumidity());
+                    dataStructure.setLightValue(dataSnapshot.getValue(DataStructure.class).getLightValue());
                     String timestamp = dataSnapshot.getValue(DataStructure.class).getAwakenTime();
                     dataStructure.setAwakenTime(timestamp);
 

@@ -101,6 +101,7 @@ public class BabyDataGraphs extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getApplicationContext(), "Signed out of " + user.getEmail(), Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }
