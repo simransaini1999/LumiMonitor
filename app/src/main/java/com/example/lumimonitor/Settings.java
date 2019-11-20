@@ -16,6 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -34,6 +38,9 @@ public class Settings extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
 
 
         listView=findViewById(R.id.listView);
@@ -57,6 +64,18 @@ public class Settings extends AppCompatActivity {
                 if (i==0){
                     Intent langIntent = new Intent(Settings.this, Set_Language.class);
                     startActivity(langIntent);
+                }
+
+                if (i==1){
+                    if (null == mAuth.getCurrentUser()){
+                        Toast.makeText(getApplicationContext(), "Not signed in!",
+                                Toast.LENGTH_LONG).show();
+                    }else{
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(getApplicationContext(), "Signed out of "+ user.getEmail(),
+                                Toast.LENGTH_LONG).show();
+                    }
+
                 }
 
                 if (i==2){

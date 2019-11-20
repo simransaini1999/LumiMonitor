@@ -91,6 +91,8 @@ public class Change_Password extends AppCompatActivity {
                             });
                         } else {
                             Log.d("LumiMonitor", "Error auth failed");
+                            Toast.makeText(getApplicationContext(), "Error authentication failed.",
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 });
