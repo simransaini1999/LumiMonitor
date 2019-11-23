@@ -47,7 +47,8 @@ public class BabyDataGraphs extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                onBackPressed();
+                Intent mainScreen = new Intent(this, MainActivity.class);
+                startActivity(mainScreen);
                 return true;
         }
         return super.onOptionsItemSelected(item);

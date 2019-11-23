@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView ToReminders;
     TextView ToRemindersTitle;
     boolean testplay = false;
+    final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final FirebaseUser user = mAuth.getCurrentUser();
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         configureLumiButton();
         configureBabyDataButton();
         configureRemindersButton();
-        Log.d("LumiMonitor", "end of main");
+        Log.d("LumiMonitor", "Oncreate");
     }
 
     @Override
@@ -93,14 +98,27 @@ public class MainActivity extends AppCompatActivity {
         ToBabyData.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,LoginScreen.class));
+
+                if (null == mAuth.getCurrentUser()){
+                    Log.d("LumiMonitor", "Not Signed in!");
+                    startActivity(new Intent(MainActivity.this,LoginScreen.class));
+                }else {
+                    Log.d("LumiMonitor", "Signed in!");
+                    startActivity(new Intent(MainActivity.this, BabyDataGraphs.class));
+                }
             }
         }));
 
         ToBabyDataTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,LoginScreen.class));
+                if (null == mAuth.getCurrentUser()){
+                    Log.d("LumiMonitor", "Not Signed in!");
+                    startActivity(new Intent(MainActivity.this,LoginScreen.class));
+                }else {
+                    Log.d("LumiMonitor", "Signed in!");
+                    startActivity(new Intent(MainActivity.this, BabyDataGraphs.class));
+                }
             }
         });
 
