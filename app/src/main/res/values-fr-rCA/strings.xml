@@ -24,7 +24,7 @@
     <string name="passMatch">Le mot de passe ne correspond pas, ne peut pas continuer</string>
     <string name="password">Mot de passe</string>
     <string name="passwordHint">Entrer le mot de passe</string>
-    <string name="ptt">pousser à parler</string>
+    <string name="ptt">Prendre une photo!</string>
     <string name="register">S\'inscrire</string>
     <string name="registration">enregistrement</string>
     <string name="reminders">Des rappels</string>
