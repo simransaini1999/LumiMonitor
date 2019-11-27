@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/TalkText"
+        android:id="@+id/PictureText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/allerta"
@@ -80,7 +80,7 @@
         app:srcCompat="@android:drawable/ic_menu_slideshow" />
 
     <ImageButton
-        android:id="@+id/TalkButton"
+        android:id="@+id/PictureButton"
         android:layout_width="75dp"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.866"
-        app:srcCompat="@android:drawable/ic_btn_speak_now" />
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageButton
         android:id="@+id/LightButton"
@@ -102,7 +102,7 @@
         app:layout_constraintVertical_bias="0.695"
         app:srcCompat="@android:drawable/ic_menu_compass" />
 
-    <VideoView
+    <FrameLayout
         android:id="@+id/videoView"
         android:layout_width="364dp"
         android:layout_height="227dp"
