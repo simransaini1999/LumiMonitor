@@ -1,5 +1,6 @@
 package com.example.lumimonitor;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -14,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,15 @@ import android.widget.TimePicker;
 
 
 import android.text.format.DateFormat;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.time.LocalDate;
 import java.util.Calendar;
 
 import static com.example.lumimonitor.NotificationsApp.CHANNEL_1_ID;
@@ -41,6 +52,12 @@ public class Reminders extends AppCompatActivity
     TextView result;
     String remName;
     String remInfo;
+    String remDate;
+    String remTime;
+    RemindersDS mData;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
 
     private NotificationManagerCompat notificationManager;
 
@@ -59,6 +76,8 @@ public class Reminders extends AppCompatActivity
         Submit = findViewById(R.id.submit);
         pick = findViewById(R.id.pick);
         result = findViewById(R.id.textViewResult);
+
+        getDatabase();
 
         notificationManager = NotificationManagerCompat.from(this);
 
@@ -125,10 +144,62 @@ public class Reminders extends AppCompatActivity
                 "name:" +remName + "\n" +
                 "info:" +remInfo + "\n");
 
+       remTime = String.valueOf(hourFinal+minuteFinal);
+       remDate = yearFinal + "/" + monthFinal + "/" + dayFinal;
+       long millSecDelay;
+
+        writeData(enterReminderName.getText(), enterReminderInfo.getText(),remTime,remDate);
         sendOnChannel1();
         Log.d("LumiMonitor", "onTimeset: ");
 
     }
+
+    private void getDatabase(){
+        // TODO: Find the reference form the database.
+        database = FirebaseDatabase.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        String path = "userdata/" + mAuth.getUid();  // Write to the user account.
+        myRef = database.getReference(path);
+
+    }
+
+    private RemindersDS createData(Editable enterReminderName, Editable enterReminderInfo,String remTime1, String remDate1){
+        // TODO: Get the timestamp
+        Long time = System.currentTimeMillis()/1000;
+        String timestamp = time.toString();
+        return new RemindersDS(timestamp,
+                remTime1,
+                remDate1,
+                String.valueOf(enterReminderName),
+                String.valueOf(enterReminderInfo)
+                );
+    }
+
+    private void writeData(Editable enterReminderName, Editable enterReminderInfo,String remTime1, String remDate1) {
+
+        mData = createData(enterReminderName, enterReminderInfo, remTime1, remDate1);
+        // Select one of the following methods to update the data.
+        // 1. To set the value of data
+        // myRef.setValue(mData);
+        // 2. To create a new node on database.
+        //  myRef.push().setValue(mData);
+        // TODO: Write the data to the database.
+        // 3. To create a new node on database and detect if the writing is successful.
+        myRef.push().setValue(mData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getApplicationContext(), "Value was set. ", Toast.LENGTH_LONG).show();
+                //gotoRead();  // after write the data, read it from another screen.
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Writing failed", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
     public void sendOnChannel1 (){
         remName = enterReminderName.getText().toString();
