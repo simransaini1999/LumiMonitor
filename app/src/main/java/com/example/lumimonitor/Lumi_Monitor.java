@@ -5,20 +5,27 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.params.StreamConfigurationMap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Size;
 import android.view.MenuItem;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -45,10 +52,11 @@ public class Lumi_Monitor extends AppCompatActivity implements SurfaceHolder.Cal
         - Change the "Camera" settings; find the webcam that you are using
         - Click "Finish"
     */
-    SurfaceView babyMonitor;
-    SurfaceHolder mySurfaceHolder;
+    TextureView babyMonitor;
     CameraDevice camera;
     CameraManager manager;
+    String cameraId;
+    Size imageDimensions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +77,7 @@ public class Lumi_Monitor extends AppCompatActivity implements SurfaceHolder.Cal
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -103,7 +111,7 @@ public class Lumi_Monitor extends AppCompatActivity implements SurfaceHolder.Cal
     */
 
     private void configureLightsButton() {
-        lightButton.setOnClickListener(new View.OnClickListener () {
+        lightButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -114,7 +122,7 @@ public class Lumi_Monitor extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
     private void configureMusicButton() {
-        musicButton.setOnClickListener(new View.OnClickListener () {
+        musicButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -124,23 +132,72 @@ public class Lumi_Monitor extends AppCompatActivity implements SurfaceHolder.Cal
         });
     }
 
+    /*
     private void cameraView() {
-        // Allows us to add something to the surfaceview
-        mySurfaceHolder = babyMonitor.getHolder();
-
-        mySurfaceHolder.addCallback(this);
+        babyMonitor.setSurfaceTextureListener(surfaceTextureListener);
     }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder surfaceHolder) {
+    TextureView.SurfaceTextureListener surfaceTextureListener = new TextureView.SurfaceTextureListener() {
+        @Override
+        public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int i, int i1) {
+            openCamera();
+        }
 
+        @Override
+        public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture, int i, int i1) {
+
+        }
+
+        @Override
+        public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
+            return false;
+        }
+
+        @Override
+        public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
+
+        }
+    };
+
+    private void openCamera() throws CameraAccessException {
+        manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        cameraId = manager.getCameraIdList()[0];
+
+        CameraCharacteristics cc = manager.getCameraCharacteristics(cameraId);
+        StreamConfigurationMap map = cc.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+        imageDimensions = map.getOutputSizes(SurfaceTexture.class)[0];
+
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            return;
+        }
+        manager.openCamera(cameraId, stateCallback, null);
     }
 
-    @Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-    }
+    CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
+        @Override
+        public void onOpened(CameraDevice cameraDevice) {
+            cameraDevice = camera;
+            startCameraPreview();
 
-    @Override
-    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-    }
+        }
+
+        @Override
+        public void onDisconnected(CameraDevice cameraDevice) {
+            cameraDevice.close();
+        }
+
+        @Override
+        public void onError(CameraDevice cameraDevice, int error) {
+            cameraDevice.close();
+            cameraDevice = null;
+        }
+    } */
+
 }
