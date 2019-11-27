@@ -8,9 +8,13 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -120,21 +124,44 @@ public class Reminders extends AppCompatActivity
                 "minute:" +minuteFinal + "\n" +
                 "name:" +remName + "\n" +
                 "info:" +remInfo + "\n");
+
+        sendOnChannel1();
+        Log.d("LumiMonitor", "onTimeset: ");
+
     }
 
-    public void sendOnChannel1 (View v){
+    public void sendOnChannel1 (){
         remName = enterReminderName.getText().toString();
         remInfo = enterReminderInfo.getText().toString();
 
-        Notification notification = new NotificationCompat.Builder(this,CHANNEL_1_ID)
+        Log.d("LumiMonitor", "onChannel1: ");
+
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this,CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_child)
                 .setContentTitle(remName)
                 .setContentText(remInfo)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .build();
+                .setCategory(NotificationCompat.CATEGORY_ALARM);
+                //.build();
+        Intent intent = new Intent(getApplicationContext(), Reminders.class);
+        PendingIntent activity = PendingIntent.getActivity(getApplicationContext(), 170699, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        notification.setContentIntent(activity);
 
-        notificationManager.notify(1,notification);
+        Notification notifications = notification.build();
+
+        Intent notificationIntent = new Intent(getApplicationContext(), MyBroadcastReceiver.class);
+        notificationIntent.putExtra(MyBroadcastReceiver.NOTIFICATION_ID, 170699);
+        notificationIntent.putExtra(MyBroadcastReceiver.NOTIFICATION, notifications);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 170699, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + 90000;
+        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+
+        Log.d("LumiMonitor", "onChannel2: ");
+
+
+
     }
 
 
