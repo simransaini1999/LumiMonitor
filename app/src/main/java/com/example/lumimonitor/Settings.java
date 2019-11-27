@@ -82,6 +82,10 @@ public class Settings extends AppCompatActivity {
                     Intent changePassIntent = new Intent(Settings.this, Change_Password.class);
                     startActivity(changePassIntent);
                 }
+                if (i==3){
+                    Intent changeEmailIntent = new Intent(Settings.this, Change_Email.class);
+                    startActivity(changeEmailIntent);
+                }
 
 
             }
