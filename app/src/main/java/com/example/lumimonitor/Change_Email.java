@@ -41,8 +41,6 @@ Button ceb;
 
               changeEmail(oldEmail, newEmail, currentPass);
               Intent gotosettings = new Intent(Change_Email.this, Settings.class);
-              Toast.makeText(getApplicationContext(), "Email Changed",
-                      Toast.LENGTH_LONG).show();
               startActivity(gotosettings);
           }
         });
