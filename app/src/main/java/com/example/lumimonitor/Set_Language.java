@@ -21,9 +21,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.Locale;
+
+import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 public class Set_Language extends AppCompatActivity {
     Button engBox;
@@ -53,7 +57,6 @@ public class Set_Language extends AppCompatActivity {
             setContentView(R.layout.activity_lumi__monitor2);
             setContentView(R.layout.activity_music);
             setContentView(R.layout.activity_registration);
-            setContentView(R.layout.activity_reminders);
             setContentView(R.layout.activity_set__language);
             setContentView(R.layout.activity_settings);
             setContentView(R.layout.activity_test_write_db);
@@ -76,7 +79,6 @@ public class Set_Language extends AppCompatActivity {
                 setContentView(R.layout.activity_lumi__monitor2);
                 setContentView(R.layout.activity_music);
                 setContentView(R.layout.activity_registration);
-                setContentView(R.layout.activity_reminders);
                 setContentView(R.layout.activity_set__language);
                 setContentView(R.layout.activity_settings);
                 setContentView(R.layout.activity_test_write_db);

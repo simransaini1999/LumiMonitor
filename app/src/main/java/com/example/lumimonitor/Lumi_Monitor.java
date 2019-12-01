@@ -132,6 +132,7 @@ public class Lumi_Monitor extends AppCompatActivity implements SurfaceHolder.Cal
         });
     }
 
+
     /*
     private void cameraView() {
         babyMonitor.setSurfaceTextureListener(surfaceTextureListener);

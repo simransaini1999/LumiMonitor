@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     TextView ToLumiMonitorTitle;
     ImageView ToBabyData;
     TextView ToBabyDataTitle;
-    ImageView ToReminders;
-    TextView ToRemindersTitle;
     boolean testplay = false;
     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final FirebaseUser user = mAuth.getCurrentUser();
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         playstop();
         configureLumiButton();
         configureBabyDataButton();
-        configureRemindersButton();
         Log.d("LumiMonitor", "Oncreate");
     }
 
@@ -73,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
         ToLumiMonitorTitle = findViewById(R.id.ToLumiMonitorTitle);
         ToBabyData = findViewById(R.id.ToBabyData);
         ToBabyDataTitle = findViewById(R.id.ToBabyDataTitle);
-        ToReminders = findViewById(R.id.ToReminders);
-        ToRemindersTitle = findViewById(R.id.ToRemindersTitle);
     }
 
     private void configureLumiButton(){
@@ -124,21 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void configureRemindersButton(){
-        ToReminders.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Reminders.class));
-            }
-        }));
-
-        ToRemindersTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Reminders.class));
-            }
-        });
-    }
 
     private void playstop (){
         playbutton.setOnClickListener(new View.OnClickListener() {
