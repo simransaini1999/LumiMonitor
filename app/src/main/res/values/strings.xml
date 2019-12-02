@@ -34,6 +34,15 @@
     <string name="registration">Registration</string>
     <string name="settings">Settings</string>
     <string name="tempGraphString">Temperature Graph</string>
+    
+    <string-array name="Songs">
+        <item >No Song Selected!</item>
+        <item >Twinkle Twinkle Little Star</item>
+        <item >Alphabet Song</item>
+        <item >Wheels on the Bus</item>
+        <item >Down by the Bay</item>
+        <item >Old MacDonald</item>
+    </string-array>
 
 
 </resources>

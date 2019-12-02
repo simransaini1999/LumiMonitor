@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     boolean testplay = false;
     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final FirebaseUser user = mAuth.getCurrentUser();
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    Select_Song mData;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         findAllViews();
+        getDatabase();
         playstop();
         configureLumiButton();
         configureBabyDataButton();
@@ -119,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void getDatabase() {
+        //FirebaseApp.initializeApp(this);
+        database = FirebaseDatabase.getInstance();
+        //FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String path = "songPlaying/" + mAuth.getUid();
+        myRef = database.getReference(path);
+    }
 
     private void playstop (){
         playbutton.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
 
 }
