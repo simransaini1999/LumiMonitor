@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,20 +31,77 @@ import java.util.Locale;
 import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 public class Set_Language extends AppCompatActivity {
-    Button engBox;
-    Button frBox;
+    TextView engBox;
+    TextView frBox;
+    ImageView usaFlag;
+    ImageView quFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set__language);
+        setTitle(getString(R.string.ChangeLang));
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         frBox = findViewById(R.id.French);
         engBox = findViewById(R.id.English);
-        setTitle(getString(R.string.settings));
+        usaFlag = findViewById(R.id.usaFlag);
+        quFlag = findViewById(R.id.quebecFlag);
+
     engBox.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             setLocale("en");
+            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_change__email);
+            setContentView(R.layout.activity_baby__data);
+            setContentView(R.layout.activity_baby_data_graphs);
+            setContentView(R.layout.activity_change__password);
+            setContentView(R.layout.activity_graph_humidity);
+            setContentView(R.layout.activity_graph_light_value);
+            setContentView(R.layout.activity_graph_temperature);
+            setContentView(R.layout.activity_light);
+            setContentView(R.layout.activity_login_screen);
+            setContentView(R.layout.activity_lumi__monitor2);
+            setContentView(R.layout.activity_music);
+            setContentView(R.layout.activity_registration);
+            setContentView(R.layout.activity_set__language);
+            setContentView(R.layout.activity_settings);
+            setContentView(R.layout.activity_test_write_db);
+        }
+    });
+
+    usaFlag.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            setLocale("en");
+            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_change__email);
+            setContentView(R.layout.activity_baby__data);
+            setContentView(R.layout.activity_baby_data_graphs);
+            setContentView(R.layout.activity_change__password);
+            setContentView(R.layout.activity_graph_humidity);
+            setContentView(R.layout.activity_graph_light_value);
+            setContentView(R.layout.activity_graph_temperature);
+            setContentView(R.layout.activity_light);
+            setContentView(R.layout.activity_login_screen);
+            setContentView(R.layout.activity_lumi__monitor2);
+            setContentView(R.layout.activity_music);
+            setContentView(R.layout.activity_registration);
+            setContentView(R.layout.activity_set__language);
+            setContentView(R.layout.activity_settings);
+            setContentView(R.layout.activity_test_write_db);
+        }
+    });
+
+    quFlag.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            setLocale("fr");
             setContentView(R.layout.activity_main);
             setContentView(R.layout.activity_change__email);
             setContentView(R.layout.activity_baby__data);
@@ -84,20 +142,20 @@ public class Set_Language extends AppCompatActivity {
                 setContentView(R.layout.activity_test_write_db);
             }
         });
-        /*if (frBox.isClickable()){
-            setLocale("fr");
-            setContentView(R.layout.activity_main);
-
-        }
-        else if (engBox.isClickable()){
-            setLocale("en");
-            setContentView(R.layout.activity_main);
-        }
-*/
-       // setLocale("fr");
-       // setContentView(R.layout.activity_main);
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     public void setLocale(String lang) {
         //Locale myLocale = new Locale(lang);
         Resources res = getResources();

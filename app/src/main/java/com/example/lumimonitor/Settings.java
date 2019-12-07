@@ -48,9 +48,9 @@ public class Settings extends AppCompatActivity {
         ArrayList<String> arrayList = new ArrayList<>();
 
         arrayList.add("Change Language");
-        arrayList.add("Sign Out");
+        arrayList.add("View Current Email");
         arrayList.add("Change Password");
-        arrayList.add("Change Email");
+        arrayList.add("Sign Out");
 
         ArrayAdapter arrayAdapter=new ArrayAdapter(this,R.layout.listview_style,arrayList);
 
@@ -66,7 +66,7 @@ public class Settings extends AppCompatActivity {
                     startActivity(langIntent);
                 }
 
-                if (i==1){
+                if (i==3){
                     if (null == mAuth.getCurrentUser()){
                         Toast.makeText(getApplicationContext(), "Not signed in!",
                                 Toast.LENGTH_LONG).show();
@@ -79,10 +79,15 @@ public class Settings extends AppCompatActivity {
                 }
 
                 if (i==2){
-                    Intent changePassIntent = new Intent(Settings.this, Change_Password.class);
-                    startActivity(changePassIntent);
+                    if (null == mAuth.getCurrentUser()) {
+                        Toast.makeText(getApplicationContext(), "Not Logged in! Log in to change password!",
+                                Toast.LENGTH_LONG).show();
+                    }else {
+                        Intent changePassIntent = new Intent(Settings.this, Change_Password.class);
+                        startActivity(changePassIntent);
+                    }
                 }
-                if (i==3){
+                if (i==1){
                     Intent changeEmailIntent = new Intent(Settings.this, Change_Email.class);
                     startActivity(changeEmailIntent);
                 }

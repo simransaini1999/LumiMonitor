@@ -4,7 +4,7 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:layout_width="fill_parent"
     android:padding="12dp"
-    android:textSize="20sp"
+    android:textSize="23sp"
     android:gravity="start"
     android:textColor="#FFFFFF"
 

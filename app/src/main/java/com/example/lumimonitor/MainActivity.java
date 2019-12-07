@@ -1,6 +1,7 @@
 package com.example.lumimonitor;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,8 +17,18 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,18 +46,19 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     Select_Song mData;
+    String currSongName;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //getDatabase();
         findAllViews();
-        getDatabase();
         playstop();
         configureLumiButton();
         configureBabyDataButton();
+        currSongName = "none";
         Log.d("LumiMonitor", "Oncreate");
     }
 
@@ -125,23 +137,82 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+
     private void getDatabase() {
-        //FirebaseApp.initializeApp(this);
         database = FirebaseDatabase.getInstance();
-        //FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String path = "songPlaying/" + mAuth.getUid();
         myRef = database.getReference(path);
     }
+
+    private void getData(){
+        myRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Select_Song selSong = dataSnapshot.getValue(Select_Song.class);
+                songplaying.setText("Song Playing " + selSong.getSongName());
+                //currSongName = selSong.getSongName();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Select_Song selSong = dataSnapshot.getValue(Select_Song.class);
+                songplaying.setText("Song Playing " + selSong.getSongName());
+                currSongName = selSong.getSongName();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Select_Song> arraylist= new ArrayList<Select_Song>();
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                    for (DataSnapshot a : dataSnapshot.getChildren()) {
+                        Select_Song dataStructure = new Select_Song();
+                        dataStructure.setSongName(a.getValue(Select_Song.class).getSongName());
+                        arraylist.add(dataStructure);
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.dataUnavailable), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("LumiMonitor", "Data Loading Canceled/Failed.", databaseError.toException());
+            }
+        });
+    }
+
+     */
 
     private void playstop (){
         playbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view == findViewById(R.id.playbutton)){
+               // getData();
+                    if (view == findViewById(R.id.playbutton)){
                     playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
                     songplaying.setVisibility(View.VISIBLE);
-                    Toast.makeText(MainActivity.this,getString(R.string.musicPlay),Toast.LENGTH_LONG).show();
-                    testplay = true;
+                    Toast.makeText(MainActivity.this,getString(R.string.musicPlay) + " " + currSongName,Toast.LENGTH_LONG).show();
+                    //testplay = true;
                 }
             }
         });

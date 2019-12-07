@@ -25,7 +25,6 @@
         android:layout_marginStart="108dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/allerta"
-        android:text="Currently Playing: (Song Name)"
         android:textColor="#ffffff"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +34,8 @@
         android:id="@+id/playbutton"
         android:layout_width="125dp"
         android:layout_height="75dp"
-        android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toStartOf="@+id/stopbutton"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +59,8 @@
         android:id="@+id/stopbutton"
         android:layout_width="125dp"
         android:layout_height="75dp"
-        android:layout_marginTop="15dp"
         android:layout_marginEnd="72dp"
+        android:layout_marginTop="36dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -74,17 +73,16 @@
         android:layout_width="92dp"
         android:layout_height="77dp"
         android:layout_marginStart="68dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playbutton"
         app:srcCompat="@drawable/ic_tv_black_24dp" />
 
     <TextView
         android:id="@+id/ToLumiMonitorTitle"
-        android:layout_width="128dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="114dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="56dp"
         android:fontFamily="@font/allerta"
         android:gravity="center"
         android:text="@string/app_name"
@@ -98,18 +96,17 @@
         android:id="@+id/ToBabyData"
         android:layout_width="92dp"
         android:layout_height="77dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stopbutton"
         app:srcCompat="@drawable/ic_child_care_black_24dp" />
 
     <TextView
         android:id="@+id/ToBabyDataTitle"
-        android:layout_width="174dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
+        android:layout_width="138dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="48dp"
         android:fontFamily="@font/allerta"
         android:gravity="center"
         android:text="@string/viewData"
@@ -117,5 +114,14 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ToBabyData" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="215dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="9dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SongPlaying" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

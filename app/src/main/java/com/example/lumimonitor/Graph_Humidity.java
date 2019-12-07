@@ -82,7 +82,7 @@ public class Graph_Humidity extends AppCompatActivity {
         }
         //Set text description of the xAxis
         Description desc = new Description();
-        desc.setText("LineChart from Firebase");
+        desc.setText(getString(R.string.charFromBase));
         desc.setTextSize(15);
         linechart.setDescription(desc);
 
@@ -99,7 +99,7 @@ public class Graph_Humidity extends AppCompatActivity {
         }
 
         //Find the dataset of the ArrayList.
-        LineDataSet dataset = new LineDataSet(entrylist, "Humidity");
+        LineDataSet dataset = new LineDataSet(entrylist, getString(R.string.rawHumidity));
         dataset.setColor(R.color.colorAccent);  // set the color of this chart.
         dataset.setValueTextSize(14);
         //Get the LineData Object from dataset.
@@ -233,7 +233,7 @@ public class Graph_Humidity extends AppCompatActivity {
     }
 
     private void setupTitleandHomeButton() {
-        getSupportActionBar().setSubtitle("Humidity Graph");
+        getSupportActionBar().setSubtitle(R.string.HumidGraph);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

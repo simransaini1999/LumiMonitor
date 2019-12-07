@@ -34,7 +34,17 @@
     <string name="registration">Registration</string>
     <string name="settings">Settings</string>
     <string name="tempGraphString">Temperature Graph</string>
-    
+    <string name="ChangeLang">Change Language</string>
+    <string name="VBD">View Baby Data</string>
+    <string name="signedOutof">Signed out of</string>
+    <string name="viewCurrEmail">View Current Email</string>
+    <string name="notLogged">Not logged it!</string>
+    <string name="passwordUpdate">Password updated</string>
+    <string name="passwordNotUpdated">Error password not updated!</string>
+    <string name="rawHumidity">Humidity</string>
+    <string name="charFromBase">LineChart from Firebase</string>
+    <string name="HumidGraph">Humidity Graph</string>
+
     <string-array name="Songs">
         <item >No Song Selected!</item>
         <item >Twinkle Twinkle Little Star</item>

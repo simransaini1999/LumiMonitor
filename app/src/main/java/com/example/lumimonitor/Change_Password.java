@@ -77,21 +77,21 @@ public class Change_Password extends AppCompatActivity {
                                     if (task.isSuccessful()) {
 
                                         Log.d("LumiMonitor", "Password updated");
-                                        Toast.makeText(getApplicationContext(), "Password updated",
+                                        Toast.makeText(getApplicationContext(), getString(R.string.passwordUpdate),
                                                 Toast.LENGTH_LONG).show();
                                         Intent setIntent = new Intent(Change_Password.this, Settings.class);
                                         startActivity(setIntent);
 
                                     } else {
                                         Log.d("LumiMonitor", "Error password not updated");
-                                        Toast.makeText(getApplicationContext(), "Error password not updated",
+                                        Toast.makeText(getApplicationContext(), getString(R.string.passwordNotUpdated),
                                                 Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
                         } else {
                             Log.d("LumiMonitor", "Error auth failed");
-                            Toast.makeText(getApplicationContext(), "Error authentication failed.",
+                            Toast.makeText(getApplicationContext(), getString(R.string.authFailed),
                                     Toast.LENGTH_LONG).show();
                         }
                     }

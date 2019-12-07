@@ -30,6 +30,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -40,9 +41,9 @@ import java.io.IOException;
 public class Lumi_Monitor extends AppCompatActivity {
 
     // Button Declarations
-    ImageButton lightButton;
-    ImageButton musicButton;
-    ImageButton takePicture;
+    ImageView lightButton;
+    ImageView musicButton;
+    ImageView takePicture;
     //Button backButton;
 
     /* Camera View:
@@ -86,10 +87,10 @@ public class Lumi_Monitor extends AppCompatActivity {
     }
 
     private void findAllViews() {
-        lightButton = findViewById(R.id.LightButton);
-        musicButton = findViewById(R.id.MusicButton);
+        lightButton = findViewById(R.id.goToLight);
+        musicButton = findViewById(R.id.goToMusic);
         babyMonitor = findViewById(R.id.videoView);
-        takePicture = findViewById(R.id.PictureButton);
+        takePicture = findViewById(R.id.takePicture);
         //backButton = findViewById(R.id.BackButton);
     }
 

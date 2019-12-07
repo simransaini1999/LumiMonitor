@@ -28,7 +28,7 @@ public class BabyDataGraphs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baby_data_graphs);
-        setTitle(getString(R.string.registration));
+        setTitle(getString(R.string.VBD));
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
@@ -101,7 +101,7 @@ public class BabyDataGraphs extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Toast.makeText(getApplicationContext(), "Signed out of " + user.getEmail(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.signedOutof) + user.getEmail(), Toast.LENGTH_LONG).show();
                 finish();
             }
         });

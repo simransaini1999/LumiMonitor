@@ -1,15 +1,19 @@
 package com.example.lumimonitor;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,68 +24,53 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Change_Email extends AppCompatActivity {
-EditText oldEmailview;
-EditText newEmailview;
-EditText currentPassview;
-Button ceb;
+
+    private TextView currentLoggedIn;
+    private TextView email;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change__email);
+        setTitle(getString(R.string.viewCurrEmail));
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         findAllViews();
-
-        ceb.setOnClickListener(new View.OnClickListener(){
-          @Override
-          public void onClick(View view) {
-              String oldEmail = oldEmailview.getText().toString();
-              String newEmail = newEmailview.getText().toString();
-              String currentPass = currentPassview.getText().toString();
-
-              changeEmail(oldEmail, newEmail, currentPass);
-              Intent gotosettings = new Intent(Change_Email.this, Settings.class);
-              startActivity(gotosettings);
-              Toast.makeText(getApplicationContext(), "Email Changed",
-                      Toast.LENGTH_LONG).show();
-          }
-        });
+        checkEmail();
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void findAllViews(){
-        oldEmailview = findViewById(R.id.enter_old_Email);
-        newEmailview = findViewById(R.id.enter_new_email);
-        currentPassview = findViewById(R.id.current_password);
-        ceb = findViewById(R.id.change_Email);
+        currentLoggedIn = findViewById(R.id.currentlyLogged);
+        email = findViewById(R.id.email);
     }
-    private void changeEmail(final String oldEmail, final String newEmail, final String currentPass){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        // Get auth credentials from the user for re-authentication
-        AuthCredential credential = EmailAuthProvider
-                .getCredential(oldEmail, currentPass); // Current Login Credentials \\
-        // Prompt the user to re-provide their sign-in credentials
-        user.reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.d("LumiMonitor", "User re-authenticated.");
-                        //Now change your email address \\
-                        //----------------Code for Changing Email Address----------\\
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        user.updateEmail(newEmail)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Log.d("LumiMonitor", "User email address updated.");
-                                            Toast.makeText(getApplicationContext(), "Email Changed",
-                                                    Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
 
-                    }
-                });
+    private void checkEmail(){
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        if (null == user){
+            currentLoggedIn.setText(getString(R.string.notLogged));
+        }else{
+            email.setText(user.getEmail());
+            email.setVisibility(View.VISIBLE);
+        }
+
     }
 
 }
