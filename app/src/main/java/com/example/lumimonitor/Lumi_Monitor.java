@@ -35,6 +35,8 @@ import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -45,6 +47,8 @@ public class Lumi_Monitor extends AppCompatActivity {
     ImageView musicButton;
     ImageView takePicture;
     //Button backButton;
+    private FirebaseAuth mAuth;
+
 
     /* Camera View:
         - Go to Tools > AVD Manager
@@ -68,6 +72,8 @@ public class Lumi_Monitor extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        mAuth = FirebaseAuth.getInstance();
 
         findAllViews();
         configureLightsButton();
@@ -127,8 +133,13 @@ public class Lumi_Monitor extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent musicIntent = new Intent(Lumi_Monitor.this, MusicActivity.class);
-                startActivity(musicIntent);
+                if (null == mAuth.getCurrentUser()){
+                    Toast.makeText(getApplicationContext(), "Not Logged in! Log in to play music!",
+                            Toast.LENGTH_LONG).show();
+                }else {
+                    Intent musicIntent = new Intent(Lumi_Monitor.this, MusicActivity.class);
+                    startActivity(musicIntent);
+                }
             }
         });
     }

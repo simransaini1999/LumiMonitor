@@ -41,25 +41,41 @@ public class MainActivity extends AppCompatActivity {
     ImageView ToBabyData;
     TextView ToBabyDataTitle;
     boolean testplay = false;
-    final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    final FirebaseUser user = mAuth.getCurrentUser();
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-    Select_Song mData;
+    private String UID;
     String currSongName;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getDatabase();
         findAllViews();
-        playstop();
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        String path = "songPlaying/" + mAuth.getUid();
+        myRef = database.getReference(path);
+        //user = mAuth.getCurrentUser();
+
+
+       playstop();
         configureLumiButton();
         configureBabyDataButton();
-        currSongName = "none";
         Log.d("LumiMonitor", "Oncreate");
+    }
+
+    private void showData(DataSnapshot dataSnapshot) {
+        for (DataSnapshot ds : dataSnapshot.getChildren()){
+            Select_Song song = new Select_Song();
+            song.setSongName(ds.getValue(Select_Song.class).getSongName());
+            songplaying.setText("Song Playing " + song.getSongName());
+
+        }
     }
 
     @Override
@@ -137,82 +153,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
 
-    private void getDatabase() {
-        database = FirebaseDatabase.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String path = "songPlaying/" + mAuth.getUid();
-        myRef = database.getReference(path);
-    }
-
-    private void getData(){
-        myRef.addChildEventListener(new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Select_Song selSong = dataSnapshot.getValue(Select_Song.class);
-                songplaying.setText("Song Playing " + selSong.getSongName());
-                //currSongName = selSong.getSongName();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Select_Song selSong = dataSnapshot.getValue(Select_Song.class);
-                songplaying.setText("Song Playing " + selSong.getSongName());
-                currSongName = selSong.getSongName();
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Select_Song> arraylist= new ArrayList<Select_Song>();
-                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    for (DataSnapshot a : dataSnapshot.getChildren()) {
-                        Select_Song dataStructure = new Select_Song();
-                        dataStructure.setSongName(a.getValue(Select_Song.class).getSongName());
-                        arraylist.add(dataStructure);
-                    }
-                }else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.dataUnavailable), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("LumiMonitor", "Data Loading Canceled/Failed.", databaseError.toException());
-            }
-        });
-    }
-
-     */
 
     private void playstop (){
         playbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // getData();
-                    if (view == findViewById(R.id.playbutton)){
-                    playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
-                    songplaying.setVisibility(View.VISIBLE);
-                    Toast.makeText(MainActivity.this,getString(R.string.musicPlay) + " " + currSongName,Toast.LENGTH_LONG).show();
-                    //testplay = true;
+
+
+                if (null == mAuth.getCurrentUser()) {
+                    Toast.makeText(getApplicationContext(), "Not Logged in! Log in to play music!",
+                            Toast.LENGTH_LONG).show();
+                } else {
+
+                        myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            showData(dataSnapshot);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+                    if (view == findViewById(R.id.playbutton)) {
+                        playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
+                        songplaying.setText("Song Playing " + currSongName);
+                        songplaying.setVisibility(View.VISIBLE);
+                        Toast.makeText(MainActivity.this, getString(R.string.musicPlay) + " " + currSongName, Toast.LENGTH_LONG).show();
+                        //testplay = true;
+                    }
                 }
             }
         });
