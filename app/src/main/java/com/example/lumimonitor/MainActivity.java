@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -70,12 +71,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showData(DataSnapshot dataSnapshot) {
-        for (DataSnapshot ds : dataSnapshot.getChildren()){
             Select_Song song = new Select_Song();
-            song.setSongName(ds.getValue(Select_Song.class).getSongName());
+            song.setSongName(dataSnapshot.getValue(Select_Song.class).getSongName());
             songplaying.setText("Song Playing " + song.getSongName());
-
-        }
+            currSongName = song.getSongName();
     }
 
     @Override
@@ -178,12 +177,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-
-
                     if (view == findViewById(R.id.playbutton)) {
                         playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
                         songplaying.setText("Song Playing " + currSongName);
                         songplaying.setVisibility(View.VISIBLE);
+
                         Toast.makeText(MainActivity.this, getString(R.string.musicPlay) + " " + currSongName, Toast.LENGTH_LONG).show();
                         //testplay = true;
                     }

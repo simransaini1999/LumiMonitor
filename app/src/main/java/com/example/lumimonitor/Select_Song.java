@@ -16,6 +16,6 @@ public class Select_Song {
     }
 
     public void setSongName(String songName) {
-        SongName = songName;
+        this.SongName = songName;
     }
 }
