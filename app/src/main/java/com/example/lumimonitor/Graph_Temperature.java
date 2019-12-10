@@ -1,7 +1,10 @@
 package com.example.lumimonitor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -248,19 +251,28 @@ public class Graph_Temperature extends AppCompatActivity {
      * <p>Derived classes should call through to the base class for it to
      * perform the default menu handling.</p>
      *
-     * @param item The menu item that was selected.
+     * @param menu The menu item that was selected.
      * @return boolean Return false to allow normal menu processing to
      * proceed, true to consume it here.
      * @see #onCreateOptionsMenu
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
             case android.R.id.home:
                 finish();
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.settings:
+                startActivity(new Intent(Graph_Temperature.this,Settings.class));
+                return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

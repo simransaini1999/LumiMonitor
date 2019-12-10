@@ -2,6 +2,8 @@ package com.example.lumimonitor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -44,11 +46,20 @@ public class BabyDataGraphs extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bar, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                Intent mainScreen = new Intent(this, MainActivity.class);
-                startActivity(mainScreen);
+                onBackPressed();
+                return true;
+            case R.id.settings:
+                startActivity(new Intent(BabyDataGraphs.this,Settings.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

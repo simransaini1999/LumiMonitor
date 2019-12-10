@@ -1,9 +1,14 @@
 package com.example.lumimonitor;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,6 +32,11 @@ public class MusicActivity extends AppCompatActivity implements AdapterView.OnIt
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
+        setTitle(getText(R.string.changeMusic));
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         getDatabase();
 
@@ -35,6 +45,29 @@ public class MusicActivity extends AppCompatActivity implements AdapterView.OnIt
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.music_menu_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.settings:
+                startActivity(new Intent(MusicActivity.this,Settings.class));
+                return true;
+            case R.id.goHome:
+                    startActivity(new Intent(MusicActivity.this,MainActivity.class));
+                    return true;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void getDatabase() {

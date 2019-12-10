@@ -44,6 +44,8 @@ public class Baby_Data extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baby__data);
 
+
+
         findAllViews();
         getDatabase();
         retrieveData();

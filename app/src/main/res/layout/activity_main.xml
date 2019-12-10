@@ -106,7 +106,7 @@
         android:id="@+id/ToBabyDataTitle"
         android:layout_width="138dp"
         android:layout_height="65dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="56dp"
         android:fontFamily="@font/allerta"
         android:gravity="center"
         android:text="@string/viewData"

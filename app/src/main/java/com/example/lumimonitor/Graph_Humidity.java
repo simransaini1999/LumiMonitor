@@ -1,7 +1,10 @@
 package com.example.lumimonitor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -67,16 +70,15 @@ public class Graph_Humidity extends AppCompatActivity {
 
 
         if (firebaseData.size() > N)  // Should have a guard to make sure we always draw the most recent N numbers.
-            firebaseData = firebaseData.subList(firebaseData.size()-N, firebaseData.size());
+            firebaseData = firebaseData.subList(firebaseData.size() - N, firebaseData.size());
 
         Collections.sort(firebaseData);
-        for (int i=0; i< firebaseData.size(); i++){
+        for (int i = 0; i < firebaseData.size(); i++) {
             //Define the XLabels of the chart.
-            try{
-               // XLabels[i] = firebaseData.get(i).getTimestamp();
-              XLabels[i] = convertTimestamp(firebaseData.get(i).getAwakenTime());
-            }
-            catch (Exception e){
+            try {
+                // XLabels[i] = firebaseData.get(i).getTimestamp();
+                XLabels[i] = convertTimestamp(firebaseData.get(i).getAwakenTime());
+            } catch (Exception e) {
                 Log.d("MapleLeaf", "Error Happened: " + e.getMessage());
             }
         }
@@ -86,15 +88,15 @@ public class Graph_Humidity extends AppCompatActivity {
         desc.setTextSize(15);
         linechart.setDescription(desc);
 
-        linechart.animateXY(2000,2000);
+        linechart.animateXY(2000, 2000);
 
         setAndValidateLabels();
 
         int i = 0;
         List<Entry> entrylist = new ArrayList();
-        for (DataStructure ds: firebaseData){
+        for (DataStructure ds : firebaseData) {
             // Get the humidity from the firebase.
-            Entry e = new Entry (i++, Float.parseFloat(ds.getHumidity()));
+            Entry e = new Entry(i++, Float.parseFloat(ds.getHumidity()));
             entrylist.add(e);
         }
 
@@ -115,11 +117,11 @@ public class Graph_Humidity extends AppCompatActivity {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setLabelRotationAngle(-30f);  // rotate the xAxis label for 30 degrees.
-        xAxis.setValueFormatter(new IAxisValueFormatter(){
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 // Seems to be a bug in the code value should not be less than 0 or more than N-1
-                if ((value <0) || (value >N-1))return "";
+                if ((value < 0) || (value > N - 1)) return "";
                 return XLabels[(int) value];
             }
         });
@@ -159,9 +161,8 @@ public class Graph_Humidity extends AppCompatActivity {
                     String timestamp = dataSnapshot.getValue(DataStructure.class).getAwakenTime();
                     dataStructure.setAwakenTime(timestamp);
                     boolean updated = false;
-                    for (int i = 0; i<firebaseData.size(); i++){
-                        if (firebaseData.get(i).getAwakenTime().equals(dataStructure.getAwakenTime()))
-                        {
+                    for (int i = 0; i < firebaseData.size(); i++) {
+                        if (firebaseData.get(i).getAwakenTime().equals(dataStructure.getAwakenTime())) {
                             firebaseData.set(i, dataStructure);
                             updated = true;
                         }
@@ -190,12 +191,11 @@ public class Graph_Humidity extends AppCompatActivity {
                     firebaseData.add(dataStructure);  // now all the data is in arraylist.
                     Log.d("MapleLeaf", "dataStructure " + dataStructure.getAwakenTime());
                 }
-                try{
+                try {
                     //If already drew but still come to here, there is only one possibility that a new node is added to the database.
                     if (firstTimeDrew)
                         drawGraph();
-                }
-                catch (Error e){
+                } catch (Error e) {
                     Log.d("MapleLeaf", "Error Happened: " + e.getMessage());
 
 
@@ -219,17 +219,17 @@ public class Graph_Humidity extends AppCompatActivity {
         });
     }
 
-    private String convertTimestamp(String timestamp){
+    private String convertTimestamp(String timestamp) {
 
         // Convert timestamp to text.
 
-        long yourSeconds = (long)Double.parseDouble(timestamp);
-        Date mDate = new Date(yourSeconds*1000);
+        long yourSeconds = (long) Double.parseDouble(timestamp);
+        Date mDate = new Date(yourSeconds * 1000);
         DateFormat df = new SimpleDateFormat("dd MMM yyyy");
         // df.setTimeZone(TimeZone.getTimeZone("Etc/GMT-5"));
         DateFormat df1 = new SimpleDateFormat("hh:mm:ss");
-        Log.d("MapleLeaf", df.format(mDate) +System.lineSeparator() + df1.format(mDate));
-        return df.format(mDate) +System.lineSeparator() + df1.format(mDate);
+        Log.d("MapleLeaf", df.format(mDate) + System.lineSeparator() + df1.format(mDate));
+        return df.format(mDate) + System.lineSeparator() + df1.format(mDate);
     }
 
     private void setupTitleandHomeButton() {
@@ -248,19 +248,28 @@ public class Graph_Humidity extends AppCompatActivity {
      * <p>Derived classes should call through to the base class for it to
      * perform the default menu handling.</p>
      *
-     * @param item The menu item that was selected.
+     * @param menu The menu item that was selected.
      * @return boolean Return false to allow normal menu processing to
      * proceed, true to consume it here.
      * @see #onCreateOptionsMenu
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.settings:
+                startActivity(new Intent(Graph_Humidity.this, Settings.class));
+                return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

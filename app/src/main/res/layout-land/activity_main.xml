@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121a38"
+    android:clickable="false"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="202dp"
+        android:layout_height="206dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/templogo" />
+
+    <ImageView
+        android:id="@+id/playbutton"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
+
+    <ImageView
+        android:id="@+id/pausebutton"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <ImageView
+        android:id="@+id/stopbutton"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:srcCompat="@drawable/ic_stop_black_24dp" />
+
+    <ImageView
+        android:id="@+id/ToLumiMonitor"
+        android:layout_width="92dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_tv_black_24dp" />
+
+    <ImageView
+        android:id="@+id/ToBabyData"
+        android:layout_width="92dp"
+        android:layout_height="77dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_child_care_black_24dp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="215dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ToBabyDataTitle" />
+
+    <TextView
+        android:id="@+id/SongPlaying"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/allerta"
+        android:textColor="#ffffff"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/ToLumiMonitorTitle"
+        android:layout_width="117dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/allerta"
+        android:gravity="center"
+
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/ToLumiMonitor" />
+
+    <TextView
+        android:id="@+id/ToBabyDataTitle"
+        android:layout_width="138dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/allerta"
+        android:gravity="center"
+        android:text="@string/viewData"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ToBabyData" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

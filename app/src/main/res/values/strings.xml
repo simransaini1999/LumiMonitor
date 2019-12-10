@@ -44,6 +44,8 @@
     <string name="rawHumidity">Humidity</string>
     <string name="charFromBase">LineChart from Firebase</string>
     <string name="HumidGraph">Humidity Graph</string>
+    <string name="changeMusic">Change Music</string>
+    <string name="changePassword">Change Password</string>
 
     <string-array name="Songs">
         <item >No Song Selected!</item>
