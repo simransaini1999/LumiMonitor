@@ -48,22 +48,10 @@ public class Lumi_Monitor extends AppCompatActivity {
     ImageView lightButton;
     ImageView musicButton;
     ImageView takePicture;
+    VideoView babyMonitor;
     //Button backButton;
     private FirebaseAuth mAuth;
 
-
-    /* Camera View:
-        - Go to Tools > AVD Manager
-        - Click on the "Edit" button for selected emulator (Under Actions column, the Pencil icon)
-        - Click on the "Advanced Settings" button
-        - Change the "Camera" settings; find the webcam that you are using
-        - Click "Finish"
-    */
-    TextureView babyMonitor;
-    CameraDevice camera;
-    CameraManager manager;
-    String cameraId;
-    Size imageDimensions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +68,7 @@ public class Lumi_Monitor extends AppCompatActivity {
         findAllViews();
         configureLightsButton();
         configureMusicButton();
+        babyMonitorView();
         //backMainMenu();
 
     }
@@ -157,73 +146,21 @@ public class Lumi_Monitor extends AppCompatActivity {
         });
     }
 
+    private void babyMonitorView() {
 
-    /*
-    private void cameraView() {
-        babyMonitor.setSurfaceTextureListener(surfaceTextureListener);
+        // setting the media controller
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(babyMonitor);
+
+        // set the url of the video
+        Uri uri = Uri.parse("https://wowzaprod222-i.akamaihd.net/hls/live/1005344/f81647c6/playlist.m3u8");
+
+        // setting the video player
+        babyMonitor.setMediaController(mediaController);
+        babyMonitor.setVideoURI(uri);
+        babyMonitor.start();
+
     }
 
-    TextureView.SurfaceTextureListener surfaceTextureListener = new TextureView.SurfaceTextureListener() {
-        @Override
-        public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int i, int i1) {
-            openCamera();
-        }
-
-        @Override
-        public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture, int i, int i1) {
-
-        }
-
-        @Override
-        public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
-            return false;
-        }
-
-        @Override
-        public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
-
-        }
-    };
-
-    private void openCamera() throws CameraAccessException {
-        manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-        cameraId = manager.getCameraIdList()[0];
-
-        CameraCharacteristics cc = manager.getCameraCharacteristics(cameraId);
-        StreamConfigurationMap map = cc.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
-        imageDimensions = map.getOutputSizes(SurfaceTexture.class)[0];
-
-        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    Activity#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            return;
-        }
-        manager.openCamera(cameraId, stateCallback, null);
-    }
-
-    CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
-        @Override
-        public void onOpened(CameraDevice cameraDevice) {
-            cameraDevice = camera;
-            startCameraPreview();
-
-        }
-
-        @Override
-        public void onDisconnected(CameraDevice cameraDevice) {
-            cameraDevice.close();
-        }
-
-        @Override
-        public void onError(CameraDevice cameraDevice, int error) {
-            cameraDevice.close();
-            cameraDevice = null;
-        }
-    } */
 
 }
