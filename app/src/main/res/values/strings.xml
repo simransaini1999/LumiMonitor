@@ -14,7 +14,7 @@
     <string name="babyLogin">Baby Data Login</string>
     <string name="babyView">Baby View</string>
     <string name="lights">Lights</string>
-    <string name="ptt">Take a Picture!</string>
+    <string name="ptt">Refresh Stream</string> <!-- Originally "Take a Picture" -->
     <string name="music">Music</string>
     <string name="username">Username </string>
     <string name="temp">Temperature: </string>
@@ -42,8 +42,10 @@
     <string name="passwordUpdate">Password updated</string>
     <string name="passwordNotUpdated">Error password not updated!</string>
     <string name="rawHumidity">Humidity</string>
-    <string name="charFromBase">LineChart from Firebase</string>
+    <string name="charFromBase">BarChart from Firebase</string>
     <string name="HumidGraph">Humidity Graph</string>
+    <string name="LightGraph">Light Value Graph</string>
+    <string name="TempGraph">Temperature Graph</string>
     <string name="changeMusic">Change Music</string>
     <string name="changePassword">Change Password</string>
 

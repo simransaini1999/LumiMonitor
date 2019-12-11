@@ -126,7 +126,7 @@ public class TestWriteDB extends AppCompatActivity {
         save = findViewById(R.id.save);
         temperature = findViewById(R.id.temperature);
         humidity = findViewById(R.id.humidity);
-        message = findViewById(R.id.log);
+        message = findViewById(R.id.lightVal);
     }
     private void gotoRead() {
         // TODO : Start the read option After login

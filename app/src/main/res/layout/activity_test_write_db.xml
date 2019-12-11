@@ -35,12 +35,12 @@
         android:hint="Humidity" />
 
     <EditText
-        android:id="@+id/log"
+        android:id="@+id/lightVal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:textColor="#FFFFFF"
-        android:inputType="textLongMessage"
+        android:inputType="number"
         android:hint="Light Value" />
     <View
         android:layout_width="match_parent"

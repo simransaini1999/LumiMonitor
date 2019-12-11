@@ -35,17 +35,17 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_library_music_purp" />
 
-    <!--
+
     <ImageView
         android:id="@+id/takePicture"
         android:layout_width="116dp"
         android:layout_height="78dp"
-        android:layout_marginBottom="88dp"
         android:layout_marginStart="144dp"
+        android:layout_marginBottom="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LightsText"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.573"
         app:srcCompat="@drawable/ic_local_see_liblue" />
 
     <TextView
@@ -61,7 +61,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" /> -->
+        app:layout_constraintVertical_bias="0.95" />
 
     <TextView
         android:id="@+id/MusicText"

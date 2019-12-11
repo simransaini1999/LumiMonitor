@@ -69,6 +69,7 @@ public class Lumi_Monitor extends AppCompatActivity {
         configureLightsButton();
         configureMusicButton();
         babyMonitorView();
+        refreshStream();
         //backMainMenu();
 
     }
@@ -98,7 +99,7 @@ public class Lumi_Monitor extends AppCompatActivity {
         lightButton = findViewById(R.id.goToLight);
         musicButton = findViewById(R.id.goToMusic);
         babyMonitor = findViewById(R.id.videoView);
-        takePicture = findViewById(R.id.takePicture);
+        takePicture = findViewById(R.id.takePicture); // Originally for Take Picture, temporarily for Refresh Stream
         //backButton = findViewById(R.id.BackButton);
     }
 
@@ -162,5 +163,19 @@ public class Lumi_Monitor extends AppCompatActivity {
 
     }
 
+    private void refreshStream() {
+        takePicture.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick (View v){
+                Toast.makeText(getApplicationContext(), "Refreshing Stream",
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+                startActivity(intent);
+            }
+        });
+    }
 
 }

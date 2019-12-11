@@ -1,24 +1,22 @@
 package com.example.lumimonitor;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +35,7 @@ import java.util.List;
 
 public class Graph_Light_Value extends AppCompatActivity {
 
-    private LineChart linechart;
+    private BarChart barchart;
     private FirebaseDatabase database = null;
     private DatabaseReference ref = null;
     private int N = 20;
@@ -50,17 +48,16 @@ public class Graph_Light_Value extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_light_value);
         setupTitleandHomeButton();
-        firstTimeDrew = false;
-        //Find the chart
-        linechart = findViewById(R.id.firebaseline_chart);
+        // Find the chart
+        barchart = findViewById(R.id.firebasebar_chart);
 
-        //Find the Database.
+        // Find the Database.
         database = FirebaseDatabase.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String path = "userdata/" + mAuth.getUid();
         ref = database.getReference(path);
 
-        //Load the data from database.
+        // Load the data from database.
         loadDatabase(ref);
 
 
@@ -68,61 +65,69 @@ public class Graph_Light_Value extends AppCompatActivity {
 
     private void drawGraph() {
 
-
         if (firebaseData.size() > N)  // Should have a guard to make sure we always draw the most recent N numbers.
             firebaseData = firebaseData.subList(firebaseData.size()-N, firebaseData.size());
 
         Collections.sort(firebaseData);
         for (int i=0; i< firebaseData.size(); i++){
-            //Define the XLabels of the chart.
+            // Define the XLabels of the chart.
             try{
-               // XLabels[i] = firebaseData.get(i).getTimestamp();
-              XLabels[i] = convertTimestamp(firebaseData.get(i).getAwakenTime());
+                // XLabels[i] = firebaseData.get(i).getTimestamp();
+                XLabels[i] = convertTimestamp(firebaseData.get(i).getAwakenTime());
             }
             catch (Exception e){
                 Log.d("MapleLeaf", "Error Happened: " + e.getMessage());
             }
         }
-        //Set text description of the xAxis
+
+
+        // Set text description of the xAxis
+
         Description desc = new Description();
-        desc.setText("LineChart from Firebase");
+        desc.setText(getString(R.string.charFromBase));
         desc.setTextSize(15);
-        linechart.setDescription(desc);
+        desc.setPosition(700,100);
+        barchart.setDescription(desc);
+        barchart.animateXY(2000,2000);
 
-        linechart.animateXY(2000,2000);
-
+        // Set the X-axis labels
         setAndValidateLabels();
 
+        // Set LineData Entries
         int i = 0;
-        List<Entry> entrylist = new ArrayList();
+        List<BarEntry> entrylist = new ArrayList();
+
+        // Entry is the element of the data input to the chart. All the data should be organized as Entries' ArrayList
         for (DataStructure ds: firebaseData){
-            // Get the light value from the firebase.
-            Entry e = new Entry (i++, Float.parseFloat(ds.getLightValue()));
+            BarEntry e = new BarEntry(i++, Float.parseFloat(ds.getLightValue()));
             entrylist.add(e);
         }
 
-        //Find the dataset of the ArrayList.
-        LineDataSet dataset = new LineDataSet(entrylist, "Light Value");
-        dataset.setColor(R.color.colorAccent);  // set the color of this chart.
+        // find the dataset of the ArrayList.
+        BarDataSet dataset = new BarDataSet(entrylist, "Light Value");
+        dataset.setColors(ColorTemplate.COLORFUL_COLORS);  // set the color of this chart.
         dataset.setValueTextSize(14);
-        //Get the LineData Object from dataset.
-        LineData linedata = new LineData(dataset);
-        linechart.setData(linedata);
-        //This is a must to refresh the chart.
-        linechart.invalidate(); // refresh
+
+        // Get the LineData Object from dataset.
+        BarData linedata = new BarData(dataset);
+        barchart.setData(linedata);
+
+        // This is a must to refresh the chart.
+        barchart.invalidate(); // refresh
     }
 
     private void setAndValidateLabels() {
-        //Set the labels to be displayed.
-        XAxis xAxis = linechart.getXAxis();
+        // Set the labels to be displayed.
+        XAxis xAxis = barchart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setLabelRotationAngle(-30f);  // rotate the xAxis label for 30 degrees.
         xAxis.setValueFormatter(new IAxisValueFormatter(){
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                // Seems to be a bug in the code value should not be less than 0 or more than N-1
-                if ((value <0) || (value >N-1))return "";
+                // Seems to be a bug in the library code value should not be less than 0 or more than N-1.
+                // When asking for the most recent data.
+                if ((value <0) || (value > N-1))return "";
                 return XLabels[(int) value];
             }
         });
@@ -131,16 +136,21 @@ public class Graph_Light_Value extends AppCompatActivity {
 
     private void loadDatabase(DatabaseReference ref) {
         // Last N data entries from Database, these are automatically the N most recent data
+        Query recentPostsQuery = ref.limitToLast(N).orderByChild("timestamp");
 
-        Query recentPostsQuery = ref.limitToLast(N);  // get the most recent N data
         // NOTICE: Firebase Value event is always called after the ChildAdded event.
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("MapleLeaf", "finished");
-                //Now all the query data is in List firebaseData, Follow the similar procedure in Line activity.
-                drawGraph();
 
+                for (int i=0; i< firebaseData.size(); i++){
+                    // Define the XLabels of the chart.
+                    XLabels[i] = convertTimestamp(firebaseData.get(i).getAwakenTime());
+                }
+
+                // Now all the query data is in List firebaseData, Follow the similar procedure in Line activity.
+                drawGraph();
                 firstTimeDrew = true;
             }
 
@@ -150,11 +160,12 @@ public class Graph_Light_Value extends AppCompatActivity {
             }
         });
         recentPostsQuery.addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    //handle all the returned data. Similar to the Firebase read structure event.
-                    //This part of the code is to handle if there is any data changed on Firebase.
+                    // handle all the returned data. Similar to the Firebase read structure event.
+                    // This part of the code is to handle if there is any data changed on Firebase.
                     DataStructure dataStructure = new DataStructure();
                     dataStructure.setTemperature(dataSnapshot.getValue(DataStructure.class).getTemperature());
                     dataStructure.setHumidity(dataSnapshot.getValue(DataStructure.class).getHumidity());
@@ -169,20 +180,19 @@ public class Graph_Light_Value extends AppCompatActivity {
                             updated = true;
                         }
                     }
-
-                    firebaseData.add(dataStructure);  // now all the data is in arraylist.
+                    if (!updated)
+                        firebaseData.add(dataStructure);  // now all the data is in arraylist.
 
                     Log.d("MapleLeaf", "dataStructure at " + dataStructure.getAwakenTime() + " Updated");
                 }
-                //Now all the query data is in List firebaseData, Follow the similar procedure in Line activity.
+                // Now all the query data is in List firebaseData, Follow the similar procedure in Line activity.
                 drawGraph();
             }
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    //handle all the returned data. Similar to the Firebase read structure event.
-                    //This part of the code is to handle the new data is added to the code.
+                    // handle all the returned data. Similar to the Firebase read structure event.
                     DataStructure dataStructure = new DataStructure();
                     dataStructure.setTemperature(dataSnapshot.getValue(DataStructure.class).getTemperature());
                     dataStructure.setHumidity(dataSnapshot.getValue(DataStructure.class).getHumidity());
@@ -193,17 +203,11 @@ public class Graph_Light_Value extends AppCompatActivity {
                     firebaseData.add(dataStructure);  // now all the data is in arraylist.
                     Log.d("MapleLeaf", "dataStructure " + dataStructure.getAwakenTime());
                 }
-                try{
-                    //If already drew but still come to here, there is only one possibility that a new node is added to the database.
-                    if (firstTimeDrew)
-                        drawGraph();
-                }
-                catch (Error e){
-                    Log.d("MapleLeaf", "Error Happened: " + e.getMessage());
-
-
-                }
+                // if already drew but still come to here, there is only one possibility that a new node is added to the database.
+                if (firstTimeDrew)
+                    drawGraph();
             }
+
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
@@ -225,7 +229,6 @@ public class Graph_Light_Value extends AppCompatActivity {
     private String convertTimestamp(String timestamp){
 
         // Convert timestamp to text.
-
         long yourSeconds = (long)Double.parseDouble(timestamp);
         Date mDate = new Date(yourSeconds*1000);
         DateFormat df = new SimpleDateFormat("dd MMM yyyy");
@@ -236,7 +239,7 @@ public class Graph_Light_Value extends AppCompatActivity {
     }
 
     private void setupTitleandHomeButton() {
-        getSupportActionBar().setSubtitle("Light Value Graph");
+        getSupportActionBar().setSubtitle(R.string.LightGraph);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -257,22 +260,13 @@ public class Graph_Light_Value extends AppCompatActivity {
      * @see #onCreateOptionsMenu
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_bar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
-            case R.id.settings:
-                startActivity(new Intent(Graph_Light_Value.this,Settings.class));
-                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }
