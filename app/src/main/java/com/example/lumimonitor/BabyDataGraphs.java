@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,9 +19,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class BabyDataGraphs extends AppCompatActivity {
 
-    private Button tempGraph;
-    private Button humidityGraph;
-    private Button lightGraph;
+    private ImageButton tempGraph;
+    private ImageButton humidityGraph;
+    private ImageButton lightGraph;
     private Button signout;
 
     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
