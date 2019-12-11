@@ -115,13 +115,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ToBabyData" />
 
-    <SeekBar
-        android:id="@+id/seekBar"
+    <ProgressBar
+        android:id="@+id/proBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressBackgroundTint="#FFFF"
         android:layout_width="215dp"
         android:layout_height="20dp"
         android:layout_marginStart="108dp"
         android:layout_marginTop="9dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SongPlaying" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
