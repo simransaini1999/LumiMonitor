@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textColor="#FFFFFF"
-        android:text="Time will automatically be written in the DB as EPOCH time." />
+        android:text="@string/time_will_automatically_be_written_in_the_db_as_epoch_time" />
 
     <EditText
         android:id="@+id/temperature"
@@ -23,7 +23,7 @@
         android:ems="10"
         android:inputType="number"
         android:textColor="#FFFFFF"
-        android:hint="Temperature" />
+        android:hint="@string/rawtemp" />
 
     <EditText
         android:id="@+id/humidity"
@@ -32,7 +32,7 @@
         android:ems="10"
         android:textColor="#FFFFFF"
         android:inputType="number"
-        android:hint="Humidity" />
+        android:hint="@string/rawHumidity" />
 
     <EditText
         android:id="@+id/lightVal"
@@ -41,7 +41,7 @@
         android:ems="10"
         android:textColor="#FFFFFF"
         android:inputType="number"
-        android:hint="Light Value" />
+        android:hint="@string/rawlightvalue" />
     <View
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -52,5 +52,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Save the Data to Database" />
+        android:text="@string/save_the_data_to_database" />
 </LinearLayout>

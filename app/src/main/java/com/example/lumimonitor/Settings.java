@@ -47,10 +47,10 @@ public class Settings extends AppCompatActivity {
 
         ArrayList<String> arrayList = new ArrayList<>();
 
-        arrayList.add("Change Language");
-        arrayList.add("View Current Email");
-        arrayList.add("Change Password");
-        arrayList.add("Sign Out");
+        arrayList.add(getString(R.string.ChangeLang));
+        arrayList.add(getString((R.string.viewCurrEmail)));
+        arrayList.add(getString(R.string.changePassword));
+        arrayList.add(getString(R.string.Sign_Out));
 
         ArrayAdapter arrayAdapter=new ArrayAdapter(this,R.layout.listview_style,arrayList);
 
@@ -68,11 +68,11 @@ public class Settings extends AppCompatActivity {
 
                 if (i==3){
                     if (null == mAuth.getCurrentUser()){
-                        Toast.makeText(getApplicationContext(), "Not signed in!",
+                        Toast.makeText(getApplicationContext(), getText(R.string.not_signed_in),
                                 Toast.LENGTH_LONG).show();
                     }else{
                         FirebaseAuth.getInstance().signOut();
-                        Toast.makeText(getApplicationContext(), "Signed out of "+ user.getEmail(),
+                        Toast.makeText(getApplicationContext(), getString(R.string.signedOutof)+" "+ user.getEmail(),
                                 Toast.LENGTH_LONG).show();
                     }
 
@@ -80,7 +80,7 @@ public class Settings extends AppCompatActivity {
 
                 if (i==2){
                     if (null == mAuth.getCurrentUser()) {
-                        Toast.makeText(getApplicationContext(), "Not Logged in! Log in to change password!",
+                        Toast.makeText(getApplicationContext(), getText(R.string.not_signedin_pass),
                                 Toast.LENGTH_LONG).show();
                     }else {
                         Intent changePassIntent = new Intent(Settings.this, Change_Password.class);

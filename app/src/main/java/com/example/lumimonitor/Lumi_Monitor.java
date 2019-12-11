@@ -137,7 +137,7 @@ public class Lumi_Monitor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (null == mAuth.getCurrentUser()){
-                    Toast.makeText(getApplicationContext(), "Not Logged in! Log in to play music!",
+                    Toast.makeText(getApplicationContext(), getString(R.string.not_signedin_music),
                             Toast.LENGTH_LONG).show();
                 }else {
                     Intent musicIntent = new Intent(Lumi_Monitor.this, MusicActivity.class);
@@ -168,7 +168,7 @@ public class Lumi_Monitor extends AppCompatActivity {
 
             @Override
             public void onClick (View v){
-                Toast.makeText(getApplicationContext(), "Refreshing Stream",
+                Toast.makeText(getApplicationContext(), getString(R.string.refresh_stream),
                         Toast.LENGTH_SHORT).show();
                 Intent intent = getIntent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

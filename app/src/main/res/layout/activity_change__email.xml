@@ -25,7 +25,7 @@
         android:layout_height="37dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="64dp"
-        android:text="Currently Logging With:"
+        android:text="@string/currently_logging_with"
         android:textAlignment="center"
         android:textColor="#FFFF"
         android:textSize="24sp"

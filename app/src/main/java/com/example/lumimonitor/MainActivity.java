@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (null == mAuth.getCurrentUser()) {
-                    Toast.makeText(getApplicationContext(), "Not Logged in! Log in to play music!",
+                    Toast.makeText(getApplicationContext(), getString(R.string.not_signedin_music),
                             Toast.LENGTH_LONG).show();
                 } else {
 
@@ -179,11 +179,10 @@ public class MainActivity extends AppCompatActivity {
 
                     if (view == findViewById(R.id.playbutton)) {
                         playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
-                        songplaying.setText("Song Playing " + currSongName);
+                        songplaying.setText(getString(R.string.song_playing) + currSongName);
                         songplaying.setVisibility(View.VISIBLE);
 
                         Toast.makeText(MainActivity.this, getString(R.string.musicPlay) + " " + currSongName, Toast.LENGTH_LONG).show();
-                        //testplay = true;
                     }
                 }
             }

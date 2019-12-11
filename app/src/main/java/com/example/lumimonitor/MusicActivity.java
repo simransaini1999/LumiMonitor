@@ -88,7 +88,7 @@ public class MusicActivity extends AppCompatActivity implements AdapterView.OnIt
             @Override
             public void onSuccess(Void aVoid) {
                 if (!song_name.equals("No Song Selected!")) {
-                    Toast.makeText(getApplicationContext(), "Now playing "+song_name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.now_playing) + song_name, Toast.LENGTH_SHORT).show();
                 }
 
                 //gotoRead();  after write the data, read it from another screen.
@@ -96,7 +96,7 @@ public class MusicActivity extends AppCompatActivity implements AdapterView.OnIt
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Could not play song", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.song_failed), Toast.LENGTH_LONG).show();
             }
         });
 

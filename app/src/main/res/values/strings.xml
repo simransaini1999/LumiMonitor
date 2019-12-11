@@ -48,6 +48,28 @@
     <string name="TempGraph">Temperature Graph</string>
     <string name="changeMusic">Change Music</string>
     <string name="changePassword">Change Password</string>
+    <string name="Sign_Out">Sign Out</string>
+    <string name="not_signed_in">Not signed in!</string>
+    <string name="not_signedin_pass">Not signed in! Log in to change password!</string>
+    <string name="now_playing">Now playing</string>
+    <string name="song_failed">Could not play song!</string>
+    <string name="not_signedin_music">Not Logged in! Log in to play music!</string>
+    <string name="song_playing">Song Playing</string>
+    <string name="refresh_stream">Refreshing Stream</string>
+    <string name="timestamp">timestamp</string>
+    <string name="rawtemp">Temperature</string>
+    <string name="rawlightvalue">Light Value</string>
+    <string name="back_button">Back Button</string>
+    <string name="temperature_graph_caps">TEMPERATURE GRAPH</string>
+    <string name="humidity_graph_caps">HUMIDITY GRAPH</string>
+    <string name="light_value_graph_caps">LIGHT VALUE GRAPH</string>
+    <string name="choose_a_graph_to_view">Choose a Graph To View</string>
+    <string name="currently_logging_with">Currently Logging With:</string>
+    <string name="new_password">New Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="select_music_to_play_on_monitor">Select Music To Play On Monitor</string>
+    <string name="time_will_automatically_be_written_in_the_db_as_epoch_time">Time will automatically be written in the DB as EPOCH time.</string>
+    <string name="save_the_data_to_database">Save the Data to Database</string>
 
     <string-array name="Songs">
         <item >No Song Selected!</item>

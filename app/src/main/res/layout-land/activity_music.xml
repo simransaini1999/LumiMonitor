@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="188dp"
         android:layout_marginTop="72dp"
-        android:text="Select Music To Play On Monitor"
+        android:text="@string/select_music_to_play_on_monitor"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"

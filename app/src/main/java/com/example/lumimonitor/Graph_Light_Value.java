@@ -104,7 +104,7 @@ public class Graph_Light_Value extends AppCompatActivity {
         }
 
         // find the dataset of the ArrayList.
-        BarDataSet dataset = new BarDataSet(entrylist, "Light Value");
+        BarDataSet dataset = new BarDataSet(entrylist, getString(R.string.rawlightvalue));
         dataset.setColors(ColorTemplate.COLORFUL_COLORS);  // set the color of this chart.
         dataset.setValueTextSize(14);
 
@@ -136,7 +136,7 @@ public class Graph_Light_Value extends AppCompatActivity {
 
     private void loadDatabase(DatabaseReference ref) {
         // Last N data entries from Database, these are automatically the N most recent data
-        Query recentPostsQuery = ref.limitToLast(N).orderByChild("timestamp");
+        Query recentPostsQuery = ref.limitToLast(N).orderByChild(getString(R.string.timestamp));
 
         // NOTICE: Firebase Value event is always called after the ChildAdded event.
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
