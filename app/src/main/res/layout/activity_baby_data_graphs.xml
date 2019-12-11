@@ -89,10 +89,10 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="177dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="117dp"
-        android:layout_marginTop="46dp"
+        android:layout_width="201dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="44dp"
         android:text="@string/choose_a_graph_to_view"
         android:textAlignment="center"
         android:textColor="#FFFFFF"

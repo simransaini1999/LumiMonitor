@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                         songplaying.setText(getString(R.string.song_playing) + currSongName);
                         songplaying.setVisibility(View.VISIBLE);
 
-                        Toast.makeText(MainActivity.this, getString(R.string.musicPlay) + " " + currSongName, Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, getString(R.string.musicPlay), Toast.LENGTH_LONG).show();
                     }
                 }
             }

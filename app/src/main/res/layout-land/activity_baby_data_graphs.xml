@@ -90,7 +90,7 @@
     <TextView
         android:id="@+id/textView5"
         android:layout_width="177dp"
-        android:layout_height="73dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="252dp"
         android:layout_marginTop="32dp"
         android:text="@string/choose_a_graph_to_view"

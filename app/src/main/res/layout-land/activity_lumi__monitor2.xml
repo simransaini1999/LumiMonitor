@@ -41,12 +41,13 @@
 
     <TextView
         android:id="@+id/PictureText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="137dp"
+        android:layout_height="74dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="280dp"
         android:fontFamily="@font/allerta"
         android:text="@string/ptt"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"
         android:textSize="19sp"

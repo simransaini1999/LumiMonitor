@@ -70,6 +70,9 @@
     <string name="select_music_to_play_on_monitor">Select Music To Play On Monitor</string>
     <string name="time_will_automatically_be_written_in_the_db_as_epoch_time">Time will automatically be written in the DB as EPOCH time.</string>
     <string name="save_the_data_to_database">Save the Data to Database</string>
+    <string name="canadian_french">Canadian French</string>
+    <string name="english">English</string>
+    <string name="choose_a_language">Choose a Language</string>
 
     <string-array name="Songs">
         <item >No Song Selected!</item>
