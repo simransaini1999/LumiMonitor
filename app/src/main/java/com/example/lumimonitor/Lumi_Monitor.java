@@ -59,6 +59,7 @@ public class Lumi_Monitor extends AppCompatActivity {
 
         setContentView(R.layout.activity_lumi__monitor2);
 
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -125,7 +126,7 @@ public class Lumi_Monitor extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent lightIntent = new Intent(Lumi_Monitor.this, TestWriteDB.class);
+                Intent lightIntent = new Intent(Lumi_Monitor.this, LightActivity.class);
                 startActivity(lightIntent);
             }
         });

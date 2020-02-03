@@ -73,6 +73,7 @@
     <string name="canadian_french">Canadian French</string>
     <string name="english">English</string>
     <string name="choose_a_language">Choose a Language</string>
+    <string name="lights_act">Adjust Lighting</string>
 
     <string-array name="Songs">
         <item >No Song Selected!</item>
