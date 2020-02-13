@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,8 +19,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class LightActivity extends AppCompatActivity {
 
+
+    LightDB mData;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
     ImageView colorWheel;
     TextView displayRGB;
     View colorView;
@@ -38,6 +49,7 @@ public class LightActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         findAllViews();
+        getDatabase();
         configureTempButton();
 
         colorWheel.setDrawingCacheEnabled(true);
@@ -60,9 +72,14 @@ public class LightActivity extends AppCompatActivity {
 
                         String hex = "#" + Integer.toHexString(pixel);
 
+                        writeData(r,g,b);
+
                         colorView.setBackgroundColor(Color.rgb(r, g, b));
 
                         displayRGB.setText("RGB: " + r + ", " + g + ", " + b + "\nHEX: " + hex);
+
+
+
 
                     }catch(Exception e){
                         e.printStackTrace();
@@ -104,6 +121,35 @@ public class LightActivity extends AppCompatActivity {
                 startActivity(lightIntent);
             }
         });
+    }
+
+    private void getDatabase() {
+        database = FirebaseDatabase.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        String path = "lumiColour/" + mAuth.getUid();
+        myRef = database.getReference(path);
+    }
+
+    private LightDB createData(int red, int green, int blue){
+        return new LightDB(red, blue, green);
+    }
+
+    private void writeData(int red, int blue, int green){
+        mData = createData(red, blue, green);
+        myRef.setValue(mData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("Lumi Monitor", "Value was set to: "+red+" "+green+" "+blue);
+                //Toast.makeText(getApplicationContext(), "Value was set to: "+red+" "+green+" "+blue, Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Could not update Lumi Colour", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     public void findAllViews(){

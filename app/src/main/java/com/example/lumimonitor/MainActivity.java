@@ -109,14 +109,27 @@ public class MainActivity extends AppCompatActivity {
         ToLumiMonitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Lumi_Monitor.class));
+                if (null == mAuth.getCurrentUser()){
+                    Log.d("LumiMonitor", "Not Signed in!");
+                    startActivity(new Intent(MainActivity.this,LoginScreen.class));
+                }else {
+                    Log.d("LumiMonitor", "Signed in!");
+                    startActivity(new Intent(MainActivity.this, Lumi_Monitor.class));
+                }
             }
         });
 
         ToLumiMonitorTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Lumi_Monitor.class));
+
+                if (null == mAuth.getCurrentUser()){
+                    Log.d("LumiMonitor", "Not Signed in!");
+                    startActivity(new Intent(MainActivity.this,LoginScreen.class));
+                }else {
+                    Log.d("LumiMonitor", "Signed in!");
+                    startActivity(new Intent(MainActivity.this, Lumi_Monitor.class));
+                }
             }
         });
 
@@ -151,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
 
     private void playstop (){

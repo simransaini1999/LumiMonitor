@@ -125,7 +125,7 @@ public class LoginScreen extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getApplicationContext(), getString(R.string.loginSuccess),
                                     Toast.LENGTH_LONG).show();
-                            Intent babyDataIntent = new Intent(LoginScreen.this, BabyDataGraphs.class);
+                            Intent babyDataIntent = new Intent(LoginScreen.this, MainActivity.class);
                             startActivity(babyDataIntent);
                         } else {
                             Log.w("LumiMonitor", "signInWithEmail:failure", task.getException());
