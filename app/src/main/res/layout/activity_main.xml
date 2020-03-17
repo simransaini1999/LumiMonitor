@@ -11,12 +11,14 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="196dp"
-        android:layout_height="268dp"
+        android:layout_height="200dp"
         android:layout_marginStart="116dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/templogo" />
+        app:srcCompat="@drawable/moblie_icon" />
+
+
 
     <TextView
         android:id="@+id/SongPlaying"

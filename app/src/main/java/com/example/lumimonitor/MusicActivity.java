@@ -78,12 +78,12 @@ public class MusicActivity extends AppCompatActivity implements AdapterView.OnIt
         myRef = database.getReference(path);
     }
 
-    private Select_Song createData(String song_name){
-        return new Select_Song(String.valueOf(song_name));
+    private Select_Song createData(String song_name,String song_state){
+        return new Select_Song(String.valueOf(song_name),String.valueOf(song_state));
     }
 
-    private void writeData(String song_name){
-        mData = createData(song_name);
+    private void writeData(String song_name,String song_state){
+        mData = createData(song_name,song_state);
         myRef.setValue(mData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -105,7 +105,15 @@ public class MusicActivity extends AppCompatActivity implements AdapterView.OnIt
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String text = adapterView.getItemAtPosition(i).toString();
-        writeData(text);
+        String state;
+
+        if (!text.equals("No Song Selected!")){
+            state = "Play";
+        }
+        else{
+            state = "Stop";
+        }
+        writeData(text,state);
     }
 
     @Override

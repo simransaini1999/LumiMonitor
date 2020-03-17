@@ -54,7 +54,7 @@
     <string name="now_playing">Now playing</string>
     <string name="song_failed">Could not play song!</string>
     <string name="not_signedin_music">Not Logged in! Log in to play music!</string>
-    <string name="song_playing">Song Playing</string>
+    <string name="song_playing">Song Playing </string>
     <string name="refresh_stream">Refreshing Stream</string>
     <string name="timestamp">timestamp</string>
     <string name="rawtemp">Temperature</string>

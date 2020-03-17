@@ -3,9 +3,12 @@ package com.example.lumimonitor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -41,13 +46,30 @@ public class MainActivity extends AppCompatActivity {
     TextView ToLumiMonitorTitle;
     ImageView ToBabyData;
     TextView ToBabyDataTitle;
+    ImageView mainImage;
     boolean testplay = false;
     private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth2;
     private FirebaseUser user;
     private FirebaseDatabase database;
+    private FirebaseDatabase database2;
     private DatabaseReference myRef;
+    private DatabaseReference myRef2;
     private String UID;
     String currSongName;
+    String currSongState;
+    String currSongTime;
+    String currSongLen;
+
+
+    Select_Song mData;
+
+    int redLight;
+    int greenLight;
+    int blueLight;
+
+
+
 
 
 
@@ -57,25 +79,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findAllViews();
 
-        mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        String path = "songPlaying/" + mAuth.getUid();
-        myRef = database.getReference(path);
-        //user = mAuth.getCurrentUser();
 
 
-       playstop();
+        getSongDataBase();
+        getLightDataBase();
+        dispLight();
+        //retrieveData();
+        playstop();
         configureLumiButton();
         configureBabyDataButton();
         Log.d("LumiMonitor", "Oncreate");
     }
 
+
+
     private void showData(DataSnapshot dataSnapshot) {
             Select_Song song = new Select_Song();
             song.setSongName(dataSnapshot.getValue(Select_Song.class).getSongName());
+            song.setSongState(dataSnapshot.getValue(Select_Song.class).getSongState());
             songplaying.setText("Song Playing " + song.getSongName());
             currSongName = song.getSongName();
+            currSongState = song.getSongState();
     }
+
+    private void showLightData(DataSnapshot dataSnapshot) {
+        LightDB light = new LightDB();
+        light.setRed(dataSnapshot.getValue(LightDB.class).getRed());
+        light.setGreen(dataSnapshot.getValue(LightDB.class).getGreen());
+        light.setBlue(dataSnapshot.getValue(LightDB.class).getBlue());
+        redLight = light.getRed();
+        greenLight = light.getGreen();
+        blueLight = light.getBlue();
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -103,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         ToLumiMonitorTitle = findViewById(R.id.ToLumiMonitorTitle);
         ToBabyData = findViewById(R.id.ToBabyData);
         ToBabyDataTitle = findViewById(R.id.ToBabyDataTitle);
+        mainImage = findViewById(R.id.imageView);
     }
 
     private void configureLumiButton(){
@@ -165,29 +203,67 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void getSongDataBase(){
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        String path = "songPlaying/" + mAuth.getUid();
+        myRef = database.getReference(path);
+        //user = mAuth.getCurrentUser();
+    }
 
-    private void playstop (){
+    private void getLightDataBase(){
+        mAuth2 = FirebaseAuth.getInstance();
+        database2 = FirebaseDatabase.getInstance();
+        String path2 = "lumiColour/" + mAuth2.getUid();
+        myRef2 = database2.getReference(path2);
+        //user = mAuth.getCurrentUser();
+    }
+
+
+    private void playstop () {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                showData(dataSnapshot);
+                if (currSongState.equals("Play")){
+                    songplaying.setText(getString(R.string.song_playing) + currSongName);
+                    songplaying.setVisibility(View.VISIBLE);
+                    playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
+                }else if (currSongState.equals("Pause") || currSongState.equals("Stop")){
+                    playbutton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    songplaying.setText("The Song :" + currSongName +" is paused!");
+                    songplaying.setVisibility(View.VISIBLE);
+                    //TODO SET VISABLILTY TO GONE WHEN STOPPED
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         playbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                if (null == mAuth.getCurrentUser()) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.not_signedin_music),
-                            Toast.LENGTH_LONG).show();
-                } else {
-
-                        myRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            showData(dataSnapshot);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+               Toast.makeText(getApplicationContext(), "Current Song: " + currSongName + "Current State: " + currSongState, Toast.LENGTH_LONG).show();
+               if (currSongState.equals("Play")){
+                    currSongState = "Pause";
+                    writeData(currSongName,currSongState);
+                    playbutton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    songplaying.setText("The Song :" + currSongName +" is paused!");
+                    songplaying.setVisibility(View.VISIBLE);
+                }else if (currSongState.equals("Stop")){
+                   startActivity(new Intent(MainActivity.this, MusicActivity.class));
+               }else if (currSongState.equals("Pause")){
+                   currSongState = "Play";
+                   writeData(currSongName,currSongState);
+                   playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
+                   songplaying.setText(getString(R.string.song_playing) + currSongName);
+                   songplaying.setVisibility(View.VISIBLE);
+               }
+                    /* Old code kept for reference.
 
                     if (view == findViewById(R.id.playbutton)) {
                         playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
@@ -196,20 +272,66 @@ public class MainActivity extends AppCompatActivity {
 
                         Toast.makeText(MainActivity.this, getString(R.string.musicPlay), Toast.LENGTH_LONG).show();
                     }
-                }
+
+                     */
             }
         });
 
         stopbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playbutton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                songplaying.setVisibility(View.GONE);
-                Toast.makeText(MainActivity.this,getString(R.string.musicStop),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Current Song: " + currSongName + "Current State: " + currSongState, Toast.LENGTH_LONG).show();
+                //if (currSongState.equals("Play") || currSongState.equals("Pause")){
+                    currSongState = "Stop";
+                    currSongName = "No Song Selected!";
+                    writeData(currSongName,currSongState);
+                    songplaying.setVisibility(View.GONE);
+               // }
+
+
             }
         });
 
     }
 
+    private void dispLight(){
+        myRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                showLightData(dataSnapshot);
+                mainImage.setColorFilter(Color.rgb(redLight, greenLight, blueLight));
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
+    private Select_Song createData(String song_name,String song_state){
+        return new Select_Song(String.valueOf(song_name),String.valueOf(song_state));
+    }
+
+    private void writeData(String song_name,String song_state){
+        mData = createData(song_name,song_state);
+        myRef.setValue(mData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                if (!song_name.equals("No Song Selected!")) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.now_playing) +" " + song_name, Toast.LENGTH_SHORT).show();
+                }
+
+                //gotoRead();  after write the data, read it from another screen.
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), getString(R.string.song_failed), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
 }

@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static java.util.logging.Logger.global;
 
 public class LightActivity extends AppCompatActivity {
 
@@ -35,6 +38,10 @@ public class LightActivity extends AppCompatActivity {
     TextView displayRGB;
     View colorView;
     Button tempButton;
+
+
+    int r,g,b;
+
 
     Bitmap bitmap;
 
@@ -52,36 +59,36 @@ public class LightActivity extends AppCompatActivity {
         getDatabase();
         configureTempButton();
 
+
+
         colorWheel.setDrawingCacheEnabled(true);
         colorWheel.buildDrawingCache(true);
 
         colorWheel.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN || motionEvent.getAction() == MotionEvent.ACTION_MOVE){
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN || motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
 
                     try {
                         bitmap = colorWheel.getDrawingCache();
 
                         int pixel = bitmap.getPixel((int) motionEvent.getX(), (int) motionEvent.getY());
 
-                        int r = Color.red(pixel);
-                        int g = Color.green(pixel);
-                        int b = Color.blue(pixel);
+                        r = Color.red(pixel);
+                        g = Color.green(pixel);
+                        b = Color.blue(pixel);
 
 
                         String hex = "#" + Integer.toHexString(pixel);
 
-                        writeData(r,g,b);
+                        writeData(r, g, b);
 
                         colorView.setBackgroundColor(Color.rgb(r, g, b));
 
                         displayRGB.setText("RGB: " + r + ", " + g + ", " + b + "\nHEX: " + hex);
 
 
-
-
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -135,8 +142,9 @@ public class LightActivity extends AppCompatActivity {
         return new LightDB(red, blue, green);
     }
 
+
     private void writeData(int red, int blue, int green){
-        mData = createData(red, blue, green);
+        mData = createData(red, green, blue);
         myRef.setValue(mData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -151,6 +159,7 @@ public class LightActivity extends AppCompatActivity {
         });
 
     }
+
 
     public void findAllViews(){
         colorWheel = findViewById(R.id.colourWheel);
