@@ -79,10 +79,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findAllViews();
 
-
-
         getSongDataBase();
         getLightDataBase();
+
         dispLight();
         //retrieveData();
         playstop();
