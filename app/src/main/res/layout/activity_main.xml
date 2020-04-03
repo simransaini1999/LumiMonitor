@@ -22,15 +22,17 @@
 
     <TextView
         android:id="@+id/SongPlaying"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
         android:layout_marginStart="108dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/allerta"
         android:textColor="#ffffff"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:gravity="center"
+        />
 
     <ImageView
         android:id="@+id/playbutton"

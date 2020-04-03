@@ -16,7 +16,8 @@
         android:layout_marginTop="546dp"
         android:text="@string/Sign_Out"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
     <ImageButton
         android:id="@+id/humidityGraphBtn"

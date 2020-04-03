@@ -74,6 +74,7 @@ public class Settings extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(getApplicationContext(), getString(R.string.signedOutof)+" "+ user.getEmail(),
                                 Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(Settings.this, LoginScreen.class));
                     }
 
                 }

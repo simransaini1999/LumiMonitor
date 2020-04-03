@@ -74,4 +74,7 @@
     <string name="choose_a_language">Choisissez une langue</string>
     <string name="english">Anglais</string>
     <string name="lights_act">régler l\'éclairage</string>
+    <string name="the_song">"La Chanson : "</string>
+    <string name="is_now">est maintenant</string>
+    <string name="is_pause">est en pause!</string>
 </resources>

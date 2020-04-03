@@ -15,6 +15,7 @@
         android:layout_marginStart="296dp"
         android:layout_marginTop="264dp"
         android:text="@string/Sign_Out"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

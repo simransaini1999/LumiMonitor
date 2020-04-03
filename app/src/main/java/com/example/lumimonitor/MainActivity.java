@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             Select_Song song = new Select_Song();
             song.setSongName(dataSnapshot.getValue(Select_Song.class).getSongName());
             song.setSongState(dataSnapshot.getValue(Select_Song.class).getSongState());
-            songplaying.setText("Song Playing " + song.getSongName());
+            songplaying.setText(getString(R.string.song_playing) + "\n" + song.getSongName());
             currSongName = song.getSongName();
             currSongState = song.getSongState();
     }
@@ -225,14 +225,16 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 showData(dataSnapshot);
                 if (currSongState.equals("Play")){
-                    songplaying.setText(getString(R.string.song_playing) + currSongName);
+                    songplaying.setText(getString(R.string.song_playing) + "\n" + currSongName);
                     songplaying.setVisibility(View.VISIBLE);
                     playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
-                }else if (currSongState.equals("Pause") || currSongState.equals("Stop")){
+                }else if (currSongState.equals("Pause")){
                     playbutton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    songplaying.setText("The Song :" + currSongName +" is paused!");
+                    songplaying.setText(currSongName + "\n" + getString(R.string.is_pause));
                     songplaying.setVisibility(View.VISIBLE);
-                    //TODO SET VISABLILTY TO GONE WHEN STOPPED
+                }else if (currSongState.equals("Stop")){
+                    playbutton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    songplaying.setVisibility(View.GONE);
                 }
 
             }
@@ -246,20 +248,21 @@ public class MainActivity extends AppCompatActivity {
         playbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Toast.makeText(getApplicationContext(), "Current Song: " + currSongName + "Current State: " + currSongState, Toast.LENGTH_LONG).show();
+               //Toast.makeText(getApplicationContext(), "Current Song: " + currSongName + "Current State: " + currSongState, Toast.LENGTH_LONG).show();
                if (currSongState.equals("Play")){
                     currSongState = "Pause";
                     writeData(currSongName,currSongState);
                     playbutton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    songplaying.setText("The Song :" + currSongName +" is paused!");
+                    songplaying.setText(currSongName + "\n" + getString(R.string.is_pause));
                     songplaying.setVisibility(View.VISIBLE);
-                }else if (currSongState.equals("Stop")){
+                    Toast.makeText(getApplicationContext(), currSongName + " " + getString(R.string.is_now) + " " + currSongState, Toast.LENGTH_LONG).show();
+               }else if (currSongState.equals("Stop")){
                    startActivity(new Intent(MainActivity.this, MusicActivity.class));
                }else if (currSongState.equals("Pause")){
                    currSongState = "Play";
                    writeData(currSongName,currSongState);
                    playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
-                   songplaying.setText(getString(R.string.song_playing) + currSongName);
+                   songplaying.setText(getString(R.string.song_playing) + "\n" + currSongName);
                    songplaying.setVisibility(View.VISIBLE);
                }
                     /* Old code kept for reference.
@@ -279,13 +282,14 @@ public class MainActivity extends AppCompatActivity {
         stopbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Current Song: " + currSongName + "Current State: " + currSongState, Toast.LENGTH_LONG).show();
                 //if (currSongState.equals("Play") || currSongState.equals("Pause")){
                     currSongState = "Stop";
                     currSongName = "No Song Selected!";
                     writeData(currSongName,currSongState);
                     songplaying.setVisibility(View.GONE);
-               // }
+                    Toast.makeText(getApplicationContext(), currSongName + " " + getString(R.string.is_now) + " " + currSongState, Toast.LENGTH_LONG).show();
+
+                // }
 
 
             }

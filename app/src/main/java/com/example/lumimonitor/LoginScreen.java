@@ -44,6 +44,11 @@ public class LoginScreen extends AppCompatActivity {
         findAllViews();
         SignUpButton();
         LoginHandler();
+
+        if (mAuth.getCurrentUser() != null){
+            Log.d("LumiMonitor", "Not Signed in!");
+            startActivity(new Intent(LoginScreen.this, MainActivity.class));
+        }
     }
 
     @Override
