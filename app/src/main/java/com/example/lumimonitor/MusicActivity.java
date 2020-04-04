@@ -88,7 +88,7 @@ public class MusicActivity extends AppCompatActivity implements AdapterView.OnIt
             @Override
             public void onSuccess(Void aVoid) {
                 if (!song_name.equals("No Song Selected!")) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.now_playing) + song_name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.now_playing) + " " + song_name, Toast.LENGTH_SHORT).show();
                 }
 
                 //gotoRead();  after write the data, read it from another screen.

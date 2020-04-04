@@ -77,4 +77,5 @@
     <string name="the_song">"La Chanson : "</string>
     <string name="is_now">est maintenant</string>
     <string name="is_pause">est en pause!</string>
+    <string name="white_colour">Couleur définie sur blanc. Touchez la roue chromatique pour choisir une autre couleur!</string>
 </resources>

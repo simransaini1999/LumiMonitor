@@ -15,8 +15,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,9 +40,14 @@ public class LightActivity extends AppCompatActivity {
     TextView displayRGB;
     View colorView;
     Button tempButton;
+    Switch whiteSwitch;
+    Switch offSwitch;
+    TextView colourWheelTitle;
+    TextView colourTitle;
 
 
     int r,g,b;
+    int oldr, oldg, oldb;
 
 
     Bitmap bitmap;
@@ -58,6 +65,10 @@ public class LightActivity extends AppCompatActivity {
         findAllViews();
         getDatabase();
         configureTempButton();
+        sendWhite();
+        turnOff();
+
+
 
 
 
@@ -85,6 +96,10 @@ public class LightActivity extends AppCompatActivity {
 
                         colorView.setBackgroundColor(Color.rgb(r, g, b));
 
+                        whiteSwitch.setChecked(false);
+                        whiteSwitch.setClickable(true);
+
+
                         displayRGB.setText("RGB: " + r + ", " + g + ", " + b + "\nHEX: " + hex);
 
 
@@ -98,6 +113,84 @@ public class LightActivity extends AppCompatActivity {
         });
 
     }
+
+    private void turnOff() {
+       offSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+               if (isChecked == true){
+                   oldr = r;
+                   oldg = g;
+                   oldb = b;
+
+                   r = 0;
+                   g = 0;
+                   b = 0;
+
+                   colourWheelTitle.setVisibility(View.GONE);
+                   colorWheel.setVisibility(View.GONE);
+                   colorView.setVisibility(View.GONE);
+                   colourTitle.setVisibility(View.GONE);
+                   whiteSwitch.setClickable(false);
+
+
+
+                   writeData(r, g, b);
+                   colorView.setBackgroundColor(Color.rgb(r, g, b));
+               }
+               else{
+                   r = oldr;
+                   g = oldg;
+                   b = oldb;
+                   writeData(r, g, b);
+                   colorView.setBackgroundColor(Color.rgb(r, g, b));
+
+
+
+                   whiteSwitch.setClickable(true);
+                   colourWheelTitle.setVisibility(View.VISIBLE);
+                   colorWheel.setVisibility(View.VISIBLE);
+                   colorView.setVisibility(View.VISIBLE);
+                   colourTitle.setVisibility(View.VISIBLE);
+
+
+
+               }
+           }
+       });
+
+
+
+
+    }
+
+    private void sendWhite() {
+
+
+
+        whiteSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked == true) {
+
+                    whiteSwitch.setClickable(false);
+                    r = 255;
+                    g = 255;
+                    b = 255;
+
+                    writeData(r, g, b);
+                    colorView.setBackgroundColor(Color.rgb(r, g, b));
+                    Toast.makeText(getApplicationContext(), getString(R.string.white_colour), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+
+
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -166,5 +259,10 @@ public class LightActivity extends AppCompatActivity {
         displayRGB = findViewById(R.id.rgbValue);
         colorView = findViewById(R.id.colourView);
         tempButton = findViewById(R.id.tempButton);
+        whiteSwitch = findViewById(R.id.whiteSwitch);
+        colourWheelTitle = findViewById(R.id.colourWheelTitle);
+        offSwitch = findViewById(R.id.offSwitch);
+        colourTitle = findViewById(R.id.colourTitle);
+
     }
 }

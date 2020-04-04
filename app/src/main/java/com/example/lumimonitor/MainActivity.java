@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
                     playbutton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     songplaying.setText(currSongName + "\n" + getString(R.string.is_pause));
                     songplaying.setVisibility(View.VISIBLE);
-                    Toast.makeText(getApplicationContext(), currSongName + " " + getString(R.string.is_now) + " " + currSongState, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), currSongName + " " + getString(R.string.is_now) + " " + getString(R.string.paused),  Toast.LENGTH_LONG).show();
                }else if (currSongState.equals("Stop")){
                    startActivity(new Intent(MainActivity.this, MusicActivity.class));
                }else if (currSongState.equals("Pause")){
@@ -264,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
                    playbutton.setImageResource(R.drawable.ic_pause_black_24dp);
                    songplaying.setText(getString(R.string.song_playing) + "\n" + currSongName);
                    songplaying.setVisibility(View.VISIBLE);
+                   Toast.makeText(getApplicationContext(), getString(R.string.now_playing) + " " + currSongName, Toast.LENGTH_SHORT).show();
                }
                     /* Old code kept for reference.
 
@@ -283,12 +284,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //if (currSongState.equals("Play") || currSongState.equals("Pause")){
+                    Toast.makeText(getApplicationContext(), currSongName + " " + getString(R.string.is_now) + " " + getString(R.string.is_stopped), Toast.LENGTH_LONG).show();
                     currSongState = "Stop";
                     currSongName = "No Song Selected!";
                     writeData(currSongName,currSongState);
                     songplaying.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), currSongName + " " + getString(R.string.is_now) + " " + currSongState, Toast.LENGTH_LONG).show();
-
                 // }
 
 
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 if (!song_name.equals("No Song Selected!")) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.now_playing) +" " + song_name, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), getString(R.string.now_playing) +" " + song_name, Toast.LENGTH_SHORT).show();
                 }
 
                 //gotoRead();  after write the data, read it from another screen.
