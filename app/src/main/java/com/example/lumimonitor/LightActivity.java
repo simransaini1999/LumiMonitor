@@ -42,11 +42,12 @@ public class LightActivity extends AppCompatActivity {
     Button tempButton;
     Switch whiteSwitch;
     Switch offSwitch;
+    Switch lightReact;
     TextView colourWheelTitle;
     TextView colourTitle;
 
 
-    int r,g,b;
+    int r,g,b, affectState;
     int oldr, oldg, oldb;
 
 
@@ -67,6 +68,7 @@ public class LightActivity extends AppCompatActivity {
         configureTempButton();
         sendWhite();
         turnOff();
+        turnOffLightAffect();
 
 
 
@@ -92,7 +94,7 @@ public class LightActivity extends AppCompatActivity {
 
                         String hex = "#" + Integer.toHexString(pixel);
 
-                        writeData(r, g, b);
+                        writeData(r, g, b,affectState);
 
                         colorView.setBackgroundColor(Color.rgb(r, g, b));
 
@@ -109,6 +111,24 @@ public class LightActivity extends AppCompatActivity {
 
                 }
                 return true;
+            }
+        });
+
+    }
+
+    private void turnOffLightAffect() {
+        lightReact.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked == true){
+                    affectState = 1;
+                    writeData(r, g, b,affectState);
+
+                }
+                else{
+                    affectState = 0;
+                    writeData(r, g, b,affectState);
+                }
             }
         });
 
@@ -135,14 +155,14 @@ public class LightActivity extends AppCompatActivity {
 
 
 
-                   writeData(r, g, b);
+                   writeData(r, g, b,affectState);
                    colorView.setBackgroundColor(Color.rgb(r, g, b));
                }
                else{
                    r = oldr;
                    g = oldg;
                    b = oldb;
-                   writeData(r, g, b);
+                   writeData(r, g, b,affectState);
                    colorView.setBackgroundColor(Color.rgb(r, g, b));
 
 
@@ -178,7 +198,7 @@ public class LightActivity extends AppCompatActivity {
                     g = 255;
                     b = 255;
 
-                    writeData(r, g, b);
+                    writeData(r, g, b,affectState);
                     colorView.setBackgroundColor(Color.rgb(r, g, b));
                     Toast.makeText(getApplicationContext(), getString(R.string.white_colour), Toast.LENGTH_LONG).show();
                 }
@@ -189,6 +209,8 @@ public class LightActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
 
@@ -231,17 +253,17 @@ public class LightActivity extends AppCompatActivity {
         myRef = database.getReference(path);
     }
 
-    private LightDB createData(int red, int green, int blue){
-        return new LightDB(red, blue, green);
+    private LightDB createData(int red, int green, int blue, int affect_State){
+        return new LightDB(red, blue, green, affect_State);
     }
 
 
-    private void writeData(int red, int blue, int green){
-        mData = createData(red, green, blue);
+    private void writeData(int red, int blue, int green, int affect_State){
+        mData = createData(red, green, blue,affect_State);
         myRef.setValue(mData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d("Lumi Monitor", "Value was set to: "+red+" "+green+" "+blue);
+                Log.d("Lumi Monitor", "Value was set to: "+red+" "+green+" "+blue + " with a state of" +affect_State);
                 //Toast.makeText(getApplicationContext(), "Value was set to: "+red+" "+green+" "+blue, Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -263,6 +285,7 @@ public class LightActivity extends AppCompatActivity {
         colourWheelTitle = findViewById(R.id.colourWheelTitle);
         offSwitch = findViewById(R.id.offSwitch);
         colourTitle = findViewById(R.id.colourTitle);
+        lightReact = findViewById(R.id.lightReact);
 
     }
 }
