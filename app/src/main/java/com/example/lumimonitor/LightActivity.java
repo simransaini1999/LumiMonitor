@@ -316,6 +316,22 @@ public class LightActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("ORed",oldr);
+        outState.putInt("OGreen",oldg);
+        outState.putInt("OBlue",oldb);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        oldr = savedInstanceState.getInt("ORed");
+        oldg = savedInstanceState.getInt("OGreen");
+        oldb = savedInstanceState.getInt("OBlue");
+    }
 
     public void findAllViews(){
         colorWheel = findViewById(R.id.colourWheel);
