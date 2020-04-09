@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         light.setRed(dataSnapshot.getValue(LightDB.class).getRed());
         light.setGreen(dataSnapshot.getValue(LightDB.class).getGreen());
         light.setBlue(dataSnapshot.getValue(LightDB.class).getBlue());
+
         redLight = light.getRed();
         greenLight = light.getGreen();
         blueLight = light.getBlue();
@@ -301,8 +302,9 @@ public class MainActivity extends AppCompatActivity {
         myRef2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showLightData(dataSnapshot);
-                mainImage.setColorFilter(Color.rgb(redLight, greenLight, blueLight));
+                    showLightData(dataSnapshot);
+                    mainImage.setColorFilter(Color.rgb(redLight, greenLight, blueLight));
+
             }
 
             @Override
@@ -325,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(Void aVoid) {
                 if (!song_name.equals("No Song Selected!")) {
                     //Toast.makeText(getApplicationContext(), getString(R.string.now_playing) +" " + song_name, Toast.LENGTH_SHORT).show();
+                    Log.d("LumiMonitor", "Song added");
                 }
 
                 //gotoRead();  after write the data, read it from another screen.

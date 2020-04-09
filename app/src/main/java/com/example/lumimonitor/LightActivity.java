@@ -25,8 +25,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static java.util.logging.Logger.global;
 
@@ -66,13 +69,10 @@ public class LightActivity extends AppCompatActivity {
         findAllViews();
         getDatabase();
         configureTempButton();
+        dispLight();
         sendWhite();
         turnOff();
         turnOffLightAffect();
-
-
-
-
 
         colorWheel.setDrawingCacheEnabled(true);
         colorWheel.buildDrawingCache(true);
@@ -273,6 +273,43 @@ public class LightActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showLightData(DataSnapshot dataSnapshot) {
+        LightDB light = new LightDB();
+        light.setRed(dataSnapshot.getValue(LightDB.class).getRed());
+        light.setGreen(dataSnapshot.getValue(LightDB.class).getGreen());
+        light.setBlue(dataSnapshot.getValue(LightDB.class).getBlue());
+        light.setAffectState(dataSnapshot.getValue(LightDB.class).getAffectState());
+
+        r = light.getRed();
+        g = light.getGreen();
+        b = light.getBlue();
+        affectState = light.getAffectState();
+    }
+
+    private void dispLight(){
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                showLightData(dataSnapshot);
+                colorView.setBackgroundColor(Color.rgb(r, g, b));
+
+                if (r == 255 && g == 255 && b == 255){
+                    whiteSwitch.setChecked(true);
+                }
+
+                if (affectState == 1){
+                    lightReact.setChecked(true);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
