@@ -1,40 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView android:id="@+id/scrollView"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:fillViewport="false"
     android:background="#121a38"
+    android:orientation="vertical"
     tools:context=".LightActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#121a38"
-    android:orientation="vertical">
-    
+
+    <TextView
+        android:id="@+id/colourWheelTitle"
+        android:layout_width="277dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/allerta"
+        android:gravity="center"
+        android:text="Tap a colour to display on the Lumi Monitor "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/colourWheel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.882" />
+
     <ImageView
         android:id="@+id/colourWheel"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:src="@drawable/colour2"/>
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="72dp"
+        android:src="@drawable/colour2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/colourView"
-        android:layout_width="200dp"
-        android:layout_height="410dp"
-        android:layout_marginStart="400dp"
-        android:layout_marginTop="-380dp"/>
+        android:layout_width="190dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toEndOf="@+id/colourWheel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85" />
 
     <TextView
         android:id="@+id/rgbValue"
@@ -44,18 +58,74 @@
         android:text="RGB: \nHEX: "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"
-        app:layout_constraintVertical_bias="0.917"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <TextView
+        android:id="@+id/colourTitle"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="28dp"
+        android:fontFamily="@font/allerta"
+        android:text="Lumi Colour: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/colourView"
+        app:layout_constraintStart_toEndOf="@+id/colourWheel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/tempButton"
-        android:layout_marginStart="100dp"
         android:layout_width="211dp"
         android:layout_height="59dp"
         android:text="Enter Temp Database Values"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
+    <Switch
+        android:id="@+id/whiteSwitch"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="220dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/allerta"
+        android:text="White"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
-</ScrollView>
+    <Switch
+        android:id="@+id/offSwitch"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/allerta"
+        android:text="Turn Off"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/lightReact"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/allerta"
+        android:text="Turn Off Light Reaction"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

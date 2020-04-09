@@ -303,6 +303,10 @@ public class LightActivity extends AppCompatActivity {
                     lightReact.setChecked(true);
                 }
 
+                if (r == 0 && g == 0 && b == 0){
+                    offSwitch.setChecked(true);
+                }
+
             }
 
             @Override
